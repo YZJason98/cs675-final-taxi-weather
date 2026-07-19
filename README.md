@@ -35,13 +35,17 @@ The objective is to examine how temperature, rain, and snow affect taxi demand, 
 
 ## Current Status
 
-- Dockerized Spark environment tested
-- NYC Yellow Taxi sample downloaded
-- Taxi Zone Lookup downloaded
-- Spark preprocessing starter validated
-- Broadcast join starter validated
-- Spark execution-plan evidence collected
-- Custom project development in progress
+- Public GitHub repository created
+- Dockerized Spark environment validated
+- January 2024 Yellow Taxi sample loaded
+- NOAA Central Park weather data loaded
+- Taxi Zone Lookup loaded
+- Missing weather values imputed
+- Invalid and extreme taxi records removed
+- Taxi, zone, and weather datasets successfully joined
+- Two broadcast hash joins validated in Spark History Server
+- Local analytical queries completed
+- Cloud deployment planning in progress
 
 ## Repository Structure
 
@@ -52,7 +56,34 @@ The objective is to examine how temperature, rain, and snow affect taxi demand, 
 - `sql/` — Athena SQL queries
 - `infrastructure/` — Terraform configuration
 - `slides/` — presentation materials
+- `docs/screenshots/local/` — local Spark analysis and execution-plan evidence
 
 ## Data and Security
 
 Large datasets, AWS credentials, environment files, Terraform state files, and other sensitive local files are excluded through `.gitignore`.
+
+## Local Run Instructions
+
+Start the Docker environment:
+
+```powershell
+.\make.ps1 up
+```
+
+Run the taxi-weather-zone analysis:
+
+```powershell
+docker compose exec pyspark python /home/jovyan/work/final_project/03_taxi_weather_join.py
+```
+
+Open the Spark History Server:
+
+```text
+http://localhost:18080
+```
+
+Stop the environment after use:
+
+```powershell
+.\make.ps1 down
+```
