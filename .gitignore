@@ -1,0 +1,12 @@
+work/data/
+spark-events/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ipynb_checkpoints/
+.venv/
+.env
+.terraform/
+*.tfstate
+*.tfstate.*
+terraform.tfvars

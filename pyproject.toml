@@ -1,0 +1,20 @@
+[project]
+name = "cs-675-code-starter"
+version = "0.1.0"
+description = "PySpark dev environment for CS-675 (Big Data Management)"
+requires-python = ">=3.10,<3.13"
+dependencies = [
+    "pyspark>=3.5,<4",
+    "pandas>=2",
+    "pyarrow>=15",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=7",
+    "jupyterlab>=4",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-v"

@@ -1,0 +1,60 @@
+# Minimal PySpark dev environment for CS-675.
+#
+# Two containers, one named volume:
+#   pyspark       — Jupyter Lab on :8888 (token cs675), live Spark UI on :4040
+#                   (active only while a SparkSession is running).
+#   spark-history — Spark History Server on :18080, always running. Picks up
+#                   every script that wrote event logs to the shared volume.
+#
+# Your code lives in ./work on the host and is mounted into the pyspark
+# container at /home/jovyan/work. Tests are mounted read-only at
+# /home/jovyan/tests. Spark event logs go to a Docker-managed named volume
+# (`spark-events`) — no host bind mount, no per-OS permission headaches.
+#
+# Use the Makefile in this directory for all common commands (make help).
+
+services:
+  pyspark:
+    image: quay.io/jupyter/pyspark-notebook:latest
+    container_name: cs675-pyspark
+    ports:
+      - "8888:8888"  # Jupyter Lab
+      - "4040:4040"  # Live Spark UI (active only while a SparkSession is running)
+    volumes:
+      - ./work:/home/jovyan/work
+      - ./tests:/home/jovyan/tests:ro
+      - spark-events:/spark-events
+    environment:
+      JUPYTER_TOKEN: cs675
+      JUPYTER_ENABLE_LAB: "yes"
+      # Make `import pyspark` work from Python — the image ships Spark at
+      # /usr/local/spark but doesn't add its Python bindings to PYTHONPATH.
+      PYTHONPATH: /usr/local/spark/python:/usr/local/spark/python/lib/py4j-0.10.9.9-src.zip
+
+  spark-history:
+    image: quay.io/jupyter/pyspark-notebook:latest
+    container_name: cs675-spark-history
+    # Runs as root so it can create / chmod the shared event-log dir on first
+    # boot. The image's default entrypoint (`start.sh`) drops privileges back
+    # to `jovyan`, which would defeat the chmod — so we bypass it and run our
+    # bash command as PID 1 directly. The History Server itself only reads
+    # from the dir; running it as root is fine in this dev / teaching context.
+    user: root
+    entrypoint: []
+    ports:
+      - "18080:18080"  # Persistent Spark History UI
+    volumes:
+      - spark-events:/spark-events
+    environment:
+      SPARK_HISTORY_OPTS: "-Dspark.history.fs.logDirectory=file:/spark-events -Dspark.history.ui.port=18080"
+    command:
+      - bash
+      - -c
+      - "mkdir -p /spark-events && chmod 777 /spark-events && exec /usr/local/spark/bin/spark-class org.apache.spark.deploy.history.HistoryServer"
+    # The image's default HEALTHCHECK probes Jupyter on :8888; there's no
+    # Jupyter in this container, so it would mark spark-history as unhealthy.
+    healthcheck:
+      disable: true
+
+volumes:
+  spark-events:
