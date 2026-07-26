@@ -130,5 +130,6 @@ resource "aws_emrserverless_application" "spark" {
   maximum_capacity {
     cpu    = "8 vCPU"
     memory = "32 GB"
+    disk   = "200 GB"
   }
 }
