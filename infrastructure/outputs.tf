@@ -22,3 +22,17 @@ output "athena_workgroup_name" {
   description = "Amazon Athena workgroup name."
   value       = aws_athena_workgroup.project.name
 }
+output "emr_serverless_application_id" {
+  description = "EMR Serverless Spark application ID."
+  value       = aws_emrserverless_application.spark.id
+}
+
+output "emr_serverless_application_arn" {
+  description = "EMR Serverless Spark application ARN."
+  value       = aws_emrserverless_application.spark.arn
+}
+
+output "emr_serverless_job_role_arn" {
+  description = "IAM runtime role used by EMR Serverless jobs."
+  value       = aws_iam_role.emr_serverless_job.arn
+}
