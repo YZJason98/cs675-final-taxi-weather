@@ -1,0 +1,4 @@
+aws_region           = "us-east-1"
+project_name         = "cs675-taxi-weather"
+environment          = "project"
+force_destroy_buckets = false
