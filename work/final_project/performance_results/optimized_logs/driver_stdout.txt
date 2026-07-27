@@ -1,0 +1,383 @@
+
+=== Reading project datasets ===
+Taxi source rows: 2,964,624
+Hourly weather rows: 744
+
+=== Cloud taxi-weather join validation ===
+Cleaned and joined rows: 2,857,438
+Zone match rate: 100.00%
+Weather match rate: 100.00%
+
+=== Spark physical plan ===
+== Physical Plan ==
+AdaptiveSparkPlan (64)
++- InMemoryTableScan (1)
+      +- InMemoryRelation (2)
+            +- AdaptiveSparkPlan (63)
+               +- == Final Plan ==
+                  ResultQueryStage (38)
+                  +- * Project (37)
+                     +- * BroadcastHashJoin LeftOuter BuildRight (36)
+                        :- * Project (22)
+                        :  +- * BroadcastHashJoin LeftOuter BuildRight (21)
+                        :     :- * Project (8)
+                        :     :  +- * Project (7)
+                        :     :     +- * Project (6)
+                        :     :        +- * Filter (5)
+                        :     :           +- * ColumnarToRow (4)
+                        :     :              +- Scan parquet  (3)
+                        :     +- BroadcastQueryStage (20), Statistics(sizeInBytes=1026.1 KiB, rowCount=265)
+                        :        +- BroadcastExchange (19)
+                        :           +- SortAggregate (18)
+                        :              +- * Sort (17)
+                        :                 +- AQEShuffleRead (16)
+                        :                    +- ShuffleQueryStage (15), Statistics(sizeInBytes=28.4 KiB, rowCount=265)
+                        :                       +- Exchange (14)
+                        :                          +- SortAggregate (13)
+                        :                             +- * Sort (12)
+                        :                                +- * Project (11)
+                        :                                   +- * Filter (10)
+                        :                                      +- Scan csv  (9)
+                        +- BroadcastQueryStage (35), Statistics(sizeInBytes=64.0 MiB, rowCount=744)
+                           +- BroadcastExchange (34)
+                              +- SortAggregate (33)
+                                 +- * Sort (32)
+                                    +- AQEShuffleRead (31)
+                                       +- ShuffleQueryStage (30), Statistics(sizeInBytes=113.6 KiB, rowCount=744)
+                                          +- Exchange (29)
+                                             +- SortAggregate (28)
+                                                +- * Sort (27)
+                                                   +- * Project (26)
+                                                      +- * Filter (25)
+                                                         +- * ColumnarToRow (24)
+                                                            +- Scan parquet  (23)
+               +- == Initial Plan ==
+                  Project (62)
+                  +- BroadcastHashJoin LeftOuter BuildRight (61)
+                     :- Project (52)
+                     :  +- BroadcastHashJoin LeftOuter BuildRight (51)
+                     :     :- Project (42)
+                     :     :  +- Project (41)
+                     :     :     +- Project (40)
+                     :     :        +- Filter (39)
+                     :     :           +- Scan parquet  (3)
+                     :     +- BroadcastExchange (50)
+                     :        +- SortAggregate (49)
+                     :           +- Sort (48)
+                     :              +- Exchange (47)
+                     :                 +- SortAggregate (46)
+                     :                    +- Sort (45)
+                     :                       +- Project (44)
+                     :                          +- Filter (43)
+                     :                             +- Scan csv  (9)
+                     +- BroadcastExchange (60)
+                        +- SortAggregate (59)
+                           +- Sort (58)
+                              +- Exchange (57)
+                                 +- SortAggregate (56)
+                                    +- Sort (55)
+                                       +- Project (54)
+                                          +- Filter (53)
+                                             +- Scan parquet  (23)
+
+
+(1) InMemoryTableScan
+Output [4]: [pickup_location_id#104, pickup_hour#113, pickup_borough#119, weather_condition#124]
+Arguments: [pickup_location_id#104, pickup_hour#113, pickup_borough#119, weather_condition#124]
+
+(2) InMemoryRelation
+Arguments: [pickup_location_id#104, pickup_timestamp#102, dropoff_timestamp#103, passenger_count#105, trip_distance_miles#106, payment_type#107, fare_amount#108, tip_amount#109, total_amount#110, trip_duration_minutes#112, pickup_hour#113, pickup_date#114, pickup_hour_of_day#115, card_tip_percentage#117, pickup_borough#119, pickup_zone#120, pickup_service_zone#121, temperature_c#45, precipitation_mm#46, precipitation_trace#47, relative_humidity_pct#48, wind_speed_mps#49, present_weather#51, hour_imputed#52, weather_condition#124], StorageLevel(disk, memory, 1 replicas)
+
+(3) Scan parquet 
+Output [9]: [tpep_pickup_datetime#1, tpep_dropoff_datetime#2, passenger_count#3L, trip_distance#4, PULocationID#7, payment_type#9L, fare_amount#10, tip_amount#13, total_amount#16]
+Batched: true
+Location: InMemoryFileIndex [s3://cs675-taxi-weather-project-066849627846-data/raw/taxi/year=2024/month=01/yellow_tripdata_2024-01.parquet]
+PushedFilters: [IsNotNull(tpep_pickup_datetime), IsNotNull(tpep_dropoff_datetime), IsNotNull(PULocationID), IsNotNull(trip_distance), IsNotNull(fare_amount), IsNotNull(tip_amount), IsNotNull(total_amount), GreaterThanOrEqual(tpep_pickup_datetime,2024-01-01T00:00), LessThan(tpep_pickup_datetime,2024-02-01T00:00), GreaterThanOrEqual(PULocationID,1), LessThanOrEqual(PULocationID,265), GreaterThanOrEqual(trip_distance,0.1), LessThanOrEqual(trip_distance,100.0), GreaterThanOrEqual(fare_amount,0.0), LessThanOrEqual(fare_amount,1000.0), GreaterThanOrEqual(tip_amount,0.0), LessThanOrEqual(tip_amount,1000.0), GreaterThanOrEqual(total_amount,0.0), LessThanOrEqual(total_amount,2000.0)]
+ReadSchema: struct<tpep_pickup_datetime:timestamp_ntz,tpep_dropoff_datetime:timestamp_ntz,passenger_count:bigint,trip_distance:double,PULocationID:int,payment_type:bigint,fare_amount:double,tip_amount:double,total_amount:double>
+
+(4) ColumnarToRow [codegen id : 5]
+Input [9]: [tpep_pickup_datetime#1, tpep_dropoff_datetime#2, passenger_count#3L, trip_distance#4, PULocationID#7, payment_type#9L, fare_amount#10, tip_amount#13, total_amount#16]
+
+(5) Filter [codegen id : 5]
+Input [9]: [tpep_pickup_datetime#1, tpep_dropoff_datetime#2, passenger_count#3L, trip_distance#4, PULocationID#7, payment_type#9L, fare_amount#10, tip_amount#13, total_amount#16]
+Condition : ((((((((((((((((((((((isnotnull(tpep_pickup_datetime#1) AND isnotnull(tpep_dropoff_datetime#2)) AND isnotnull(PULocationID#7)) AND isnotnull(trip_distance#4)) AND isnotnull(fare_amount#10)) AND isnotnull(tip_amount#13)) AND isnotnull(total_amount#16)) AND (tpep_pickup_datetime#1 >= 2024-01-01 00:00:00)) AND (tpep_pickup_datetime#1 < 2024-02-01 00:00:00)) AND isnotnull(cast(tpep_pickup_datetime#1 as timestamp))) AND isnotnull(cast(tpep_dropoff_datetime#2 as timestamp))) AND (PULocationID#7 >= 1)) AND (PULocationID#7 <= 265)) AND ((cast((unix_timestamp(cast(tpep_dropoff_datetime#2 as timestamp), yyyy-MM-dd HH:mm:ss, Some(UTC), true) - unix_timestamp(cast(tpep_pickup_datetime#1 as timestamp), yyyy-MM-dd HH:mm:ss, Some(UTC), true)) as double) / 60.0) >= 1.0)) AND ((cast((unix_timestamp(cast(tpep_dropoff_datetime#2 as timestamp), yyyy-MM-dd HH:mm:ss, Some(UTC), true) - unix_timestamp(cast(tpep_pickup_datetime#1 as timestamp), yyyy-MM-dd HH:mm:ss, Some(UTC), true)) as double) / 60.0) <= 180.0)) AND (trip_distance#4 >= 0.1)) AND (trip_distance#4 <= 100.0)) AND (fare_amount#10 >= 0.0)) AND (fare_amount#10 <= 1000.0)) AND (tip_amount#13 >= 0.0)) AND (tip_amount#13 <= 1000.0)) AND (total_amount#16 >= 0.0)) AND (total_amount#16 <= 2000.0))
+
+(6) Project [codegen id : 5]
+Output [9]: [cast(tpep_pickup_datetime#1 as timestamp) AS pickup_timestamp#102, cast(tpep_dropoff_datetime#2 as timestamp) AS dropoff_timestamp#103, PULocationID#7 AS pickup_location_id#104, cast(passenger_count#3L as double) AS passenger_count#105, trip_distance#4 AS trip_distance_miles#106, cast(payment_type#9L as int) AS payment_type#107, fare_amount#10, tip_amount#13, total_amount#16]
+Input [9]: [tpep_pickup_datetime#1, tpep_dropoff_datetime#2, passenger_count#3L, trip_distance#4, PULocationID#7, payment_type#9L, fare_amount#10, tip_amount#13, total_amount#16]
+
+(7) Project [codegen id : 5]
+Output [14]: [pickup_timestamp#102, dropoff_timestamp#103, pickup_location_id#104, passenger_count#105, trip_distance_miles#106, payment_type#107, fare_amount#10, tip_amount#13, total_amount#16, (cast((unix_timestamp(dropoff_timestamp#103, yyyy-MM-dd HH:mm:ss, Some(UTC), true) - unix_timestamp(pickup_timestamp#102, yyyy-MM-dd HH:mm:ss, Some(UTC), true)) as double) / 60.0) AS trip_duration_minutes#112, date_trunc(hour, pickup_timestamp#102, Some(UTC)) AS pickup_hour#113, cast(pickup_timestamp#102 as date) AS pickup_date#114, hour(pickup_timestamp#102, Some(UTC)) AS pickup_hour_of_day#115, CASE WHEN ((payment_type#107 = 1) AND (fare_amount#10 > 0.0)) THEN ((tip_amount#13 / fare_amount#10) * 100.0) END AS _card_tip_percentage#116]
+Input [9]: [pickup_timestamp#102, dropoff_timestamp#103, pickup_location_id#104, passenger_count#105, trip_distance_miles#106, payment_type#107, fare_amount#10, tip_amount#13, total_amount#16]
+
+(8) Project [codegen id : 5]
+Output [14]: [pickup_timestamp#102, dropoff_timestamp#103, pickup_location_id#104, passenger_count#105, trip_distance_miles#106, payment_type#107, fare_amount#10, tip_amount#13, total_amount#16, trip_duration_minutes#112, pickup_hour#113, pickup_date#114, pickup_hour_of_day#115, CASE WHEN ((_card_tip_percentage#116 >= 0.0) AND (_card_tip_percentage#116 <= 200.0)) THEN _card_tip_percentage#116 END AS card_tip_percentage#117]
+Input [14]: [pickup_timestamp#102, dropoff_timestamp#103, pickup_location_id#104, passenger_count#105, trip_distance_miles#106, payment_type#107, fare_amount#10, tip_amount#13, total_amount#16, trip_duration_minutes#112, pickup_hour#113, pickup_date#114, pickup_hour_of_day#115, _card_tip_percentage#116]
+
+(9) Scan csv 
+Output [4]: [LocationID#37, Borough#38, Zone#39, service_zone#40]
+Batched: false
+Location: InMemoryFileIndex [s3://cs675-taxi-weather-project-066849627846-data/raw/zone_lookup/taxi_zone_lookup.csv]
+PushedFilters: [GreaterThanOrEqual(LocationID,1), LessThanOrEqual(LocationID,265), IsNotNull(LocationID)]
+ReadSchema: struct<LocationID:int,Borough:string,Zone:string,service_zone:string>
+
+(10) Filter [codegen id : 1]
+Input [4]: [LocationID#37, Borough#38, Zone#39, service_zone#40]
+Condition : (((LocationID#37 >= 1) AND (LocationID#37 <= 265)) AND isnotnull(LocationID#37))
+
+(11) Project [codegen id : 1]
+Output [4]: [LocationID#37 AS pickup_location_id#118, trim(Borough#38, None) AS pickup_borough#119, trim(Zone#39, None) AS pickup_zone#120, trim(service_zone#40, None) AS pickup_service_zone#121]
+Input [4]: [LocationID#37, Borough#38, Zone#39, service_zone#40]
+
+(12) Sort [codegen id : 1]
+Input [4]: [pickup_location_id#118, pickup_borough#119, pickup_zone#120, pickup_service_zone#121]
+Arguments: [pickup_location_id#118 ASC NULLS FIRST], false, 0
+
+(13) SortAggregate
+Input [4]: [pickup_location_id#118, pickup_borough#119, pickup_zone#120, pickup_service_zone#121]
+Keys [1]: [pickup_location_id#118]
+Functions [3]: [partial_first(pickup_borough#119, false), partial_first(pickup_zone#120, false), partial_first(pickup_service_zone#121, false)]
+Aggregate Attributes [6]: [first#147, valueSet#148, first#151, valueSet#152, first#155, valueSet#156]
+Results [7]: [pickup_location_id#118, first#149, valueSet#150, first#153, valueSet#154, first#157, valueSet#158]
+
+(14) Exchange
+Input [7]: [pickup_location_id#118, first#149, valueSet#150, first#153, valueSet#154, first#157, valueSet#158]
+Arguments: hashpartitioning(pickup_location_id#118, 1000), ENSURE_REQUIREMENTS, [plan_id=298]
+
+(15) ShuffleQueryStage
+Output [7]: [pickup_location_id#118, first#149, valueSet#150, first#153, valueSet#154, first#157, valueSet#158]
+Arguments: 0
+
+(16) AQEShuffleRead
+Input [7]: [pickup_location_id#118, first#149, valueSet#150, first#153, valueSet#154, first#157, valueSet#158]
+Arguments: coalesced
+
+(17) Sort [codegen id : 3]
+Input [7]: [pickup_location_id#118, first#149, valueSet#150, first#153, valueSet#154, first#157, valueSet#158]
+Arguments: [pickup_location_id#118 ASC NULLS FIRST], false, 0
+
+(18) SortAggregate
+Input [7]: [pickup_location_id#118, first#149, valueSet#150, first#153, valueSet#154, first#157, valueSet#158]
+Keys [1]: [pickup_location_id#118]
+Functions [3]: [first(pickup_borough#119, false), first(pickup_zone#120, false), first(pickup_service_zone#121, false)]
+Aggregate Attributes [3]: [first(pickup_borough#119)()#125, first(pickup_zone#120)()#127, first(pickup_service_zone#121)()#129]
+Results [4]: [pickup_location_id#118, first(pickup_borough#119)()#125 AS pickup_borough#126, first(pickup_zone#120)()#127 AS pickup_zone#128, first(pickup_service_zone#121)()#129 AS pickup_service_zone#130]
+
+(19) BroadcastExchange
+Input [4]: [pickup_location_id#118, pickup_borough#126, pickup_zone#128, pickup_service_zone#130]
+Arguments: HashedRelationBroadcastMode(List(cast(input[0, int, false] as bigint)),false), [plan_id=412]
+
+(20) BroadcastQueryStage
+Output [4]: [pickup_location_id#118, pickup_borough#126, pickup_zone#128, pickup_service_zone#130]
+Arguments: 2
+
+(21) BroadcastHashJoin [codegen id : 5]
+Left keys [1]: [pickup_location_id#104]
+Right keys [1]: [pickup_location_id#118]
+Join type: LeftOuter
+Join condition: None
+
+(22) Project [codegen id : 5]
+Output [17]: [pickup_location_id#104, pickup_timestamp#102, dropoff_timestamp#103, passenger_count#105, trip_distance_miles#106, payment_type#107, fare_amount#10, tip_amount#13, total_amount#16, trip_duration_minutes#112, pickup_hour#113, pickup_date#114, pickup_hour_of_day#115, card_tip_percentage#117, pickup_borough#126, pickup_zone#128, pickup_service_zone#130]
+Input [18]: [pickup_timestamp#102, dropoff_timestamp#103, pickup_location_id#104, passenger_count#105, trip_distance_miles#106, payment_type#107, fare_amount#10, tip_amount#13, total_amount#16, trip_duration_minutes#112, pickup_hour#113, pickup_date#114, pickup_hour_of_day#115, card_tip_percentage#117, pickup_location_id#118, pickup_borough#126, pickup_zone#128, pickup_service_zone#130]
+
+(23) Scan parquet 
+Output [8]: [weather_hour#41, temperature_c#45, precipitation_mm#46, precipitation_trace#47, relative_humidity_pct#48, wind_speed_mps#49, present_weather#51, hour_imputed#52]
+Batched: true
+Location: InMemoryFileIndex [s3://cs675-taxi-weather-project-066849627846-data/processed/weather_hourly/year=2024/month=1]
+PushedFilters: [IsNotNull(weather_hour)]
+ReadSchema: struct<weather_hour:timestamp,temperature_c:double,precipitation_mm:double,precipitation_trace:boolean,relative_humidity_pct:double,wind_speed_mps:double,present_weather:string,hour_imputed:boolean>
+
+(24) ColumnarToRow [codegen id : 2]
+Input [8]: [weather_hour#41, temperature_c#45, precipitation_mm#46, precipitation_trace#47, relative_humidity_pct#48, wind_speed_mps#49, present_weather#51, hour_imputed#52]
+
+(25) Filter [codegen id : 2]
+Input [8]: [weather_hour#41, temperature_c#45, precipitation_mm#46, precipitation_trace#47, relative_humidity_pct#48, wind_speed_mps#49, present_weather#51, hour_imputed#52]
+Condition : isnotnull(weather_hour#41)
+
+(26) Project [codegen id : 2]
+Output [9]: [weather_hour#41, temperature_c#45, precipitation_mm#46, precipitation_trace#47, relative_humidity_pct#48, wind_speed_mps#49, present_weather#51, hour_imputed#52, CASE WHEN RLIKE(lower(coalesce(present_weather#51, )), snow|sn) THEN Snow WHEN ((temperature_c#45 <= 1.0) AND (precipitation_mm#46 > 0.0)) THEN Snow WHEN (precipitation_mm#46 >= 2.5) THEN Heavy Rain WHEN ((precipitation_mm#46 > 0.0) OR precipitation_trace#47) THEN Rain ELSE Dry END AS weather_condition#124]
+Input [8]: [weather_hour#41, temperature_c#45, precipitation_mm#46, precipitation_trace#47, relative_humidity_pct#48, wind_speed_mps#49, present_weather#51, hour_imputed#52]
+
+(27) Sort [codegen id : 2]
+Input [9]: [weather_hour#41, temperature_c#45, precipitation_mm#46, precipitation_trace#47, relative_humidity_pct#48, wind_speed_mps#49, present_weather#51, hour_imputed#52, weather_condition#124]
+Arguments: [weather_hour#41 ASC NULLS FIRST], false, 0
+
+(28) SortAggregate
+Input [9]: [weather_hour#41, temperature_c#45, precipitation_mm#46, precipitation_trace#47, relative_humidity_pct#48, wind_speed_mps#49, present_weather#51, hour_imputed#52, weather_condition#124]
+Keys [1]: [weather_hour#41]
+Functions [8]: [partial_first(temperature_c#45, false), partial_first(precipitation_mm#46, false), partial_first(precipitation_trace#47, false), partial_first(relative_humidity_pct#48, false), partial_first(wind_speed_mps#49, false), partial_first(present_weather#51, false), partial_first(hour_imputed#52, false), partial_first(weather_condition#124, false)]
+Aggregate Attributes [16]: [first#159, valueSet#160, first#163, valueSet#164, first#167, valueSet#168, first#171, valueSet#172, first#175, valueSet#176, first#179, valueSet#180, first#183, valueSet#184, first#187, valueSet#188]
+Results [17]: [weather_hour#41, first#161, valueSet#162, first#165, valueSet#166, first#169, valueSet#170, first#173, valueSet#174, first#177, valueSet#178, first#181, valueSet#182, first#185, valueSet#186, first#189, valueSet#190]
+
+(29) Exchange
+Input [17]: [weather_hour#41, first#161, valueSet#162, first#165, valueSet#166, first#169, valueSet#170, first#173, valueSet#174, first#177, valueSet#178, first#181, valueSet#182, first#185, valueSet#186, first#189, valueSet#190]
+Arguments: hashpartitioning(weather_hour#41, 1000), ENSURE_REQUIREMENTS, [plan_id=330]
+
+(30) ShuffleQueryStage
+Output [17]: [weather_hour#41, first#161, valueSet#162, first#165, valueSet#166, first#169, valueSet#170, first#173, valueSet#174, first#177, valueSet#178, first#181, valueSet#182, first#185, valueSet#186, first#189, valueSet#190]
+Arguments: 1
+
+(31) AQEShuffleRead
+Input [17]: [weather_hour#41, first#161, valueSet#162, first#165, valueSet#166, first#169, valueSet#170, first#173, valueSet#174, first#177, valueSet#178, first#181, valueSet#182, first#185, valueSet#186, first#189, valueSet#190]
+Arguments: coalesced
+
+(32) Sort [codegen id : 4]
+Input [17]: [weather_hour#41, first#161, valueSet#162, first#165, valueSet#166, first#169, valueSet#170, first#173, valueSet#174, first#177, valueSet#178, first#181, valueSet#182, first#185, valueSet#186, first#189, valueSet#190]
+Arguments: [weather_hour#41 ASC NULLS FIRST], false, 0
+
+(33) SortAggregate
+Input [17]: [weather_hour#41, first#161, valueSet#162, first#165, valueSet#166, first#169, valueSet#170, first#173, valueSet#174, first#177, valueSet#178, first#181, valueSet#182, first#185, valueSet#186, first#189, valueSet#190]
+Keys [1]: [weather_hour#41]
+Functions [8]: [first(temperature_c#45, false), first(precipitation_mm#46, false), first(precipitation_trace#47, false), first(relative_humidity_pct#48, false), first(wind_speed_mps#49, false), first(present_weather#51, false), first(hour_imputed#52, false), first(weather_condition#124, false)]
+Aggregate Attributes [8]: [first(temperature_c#45)()#131, first(precipitation_mm#46)()#133, first(precipitation_trace#47)()#135, first(relative_humidity_pct#48)()#137, first(wind_speed_mps#49)()#139, first(present_weather#51)()#141, first(hour_imputed#52)()#143, first(weather_condition#124)()#145]
+Results [9]: [weather_hour#41, first(temperature_c#45)()#131 AS temperature_c#132, first(precipitation_mm#46)()#133 AS precipitation_mm#134, first(precipitation_trace#47)()#135 AS precipitation_trace#136, first(relative_humidity_pct#48)()#137 AS relative_humidity_pct#138, first(wind_speed_mps#49)()#139 AS wind_speed_mps#140, first(present_weather#51)()#141 AS present_weather#142, first(hour_imputed#52)()#143 AS hour_imputed#144, first(weather_condition#124)()#145 AS weather_condition#146]
+
+(34) BroadcastExchange
+Input [9]: [weather_hour#41, temperature_c#132, precipitation_mm#134, precipitation_trace#136, relative_humidity_pct#138, wind_speed_mps#140, present_weather#142, hour_imputed#144, weather_condition#146]
+Arguments: HashedRelationBroadcastMode(List(input[0, timestamp, false]),false), [plan_id=526]
+
+(35) BroadcastQueryStage
+Output [9]: [weather_hour#41, temperature_c#132, precipitation_mm#134, precipitation_trace#136, relative_humidity_pct#138, wind_speed_mps#140, present_weather#142, hour_imputed#144, weather_condition#146]
+Arguments: 3
+
+(36) BroadcastHashJoin [codegen id : 5]
+Left keys [1]: [pickup_hour#113]
+Right keys [1]: [weather_hour#41]
+Join type: LeftOuter
+Join condition: None
+
+(37) Project [codegen id : 5]
+Output [25]: [pickup_location_id#104, pickup_timestamp#102, dropoff_timestamp#103, passenger_count#105, trip_distance_miles#106, payment_type#107, fare_amount#10, tip_amount#13, total_amount#16, trip_duration_minutes#112, pickup_hour#113, pickup_date#114, pickup_hour_of_day#115, card_tip_percentage#117, pickup_borough#126, pickup_zone#128, pickup_service_zone#130, temperature_c#132, precipitation_mm#134, precipitation_trace#136, relative_humidity_pct#138, wind_speed_mps#140, present_weather#142, hour_imputed#144, weather_condition#146]
+Input [26]: [pickup_location_id#104, pickup_timestamp#102, dropoff_timestamp#103, passenger_count#105, trip_distance_miles#106, payment_type#107, fare_amount#10, tip_amount#13, total_amount#16, trip_duration_minutes#112, pickup_hour#113, pickup_date#114, pickup_hour_of_day#115, card_tip_percentage#117, pickup_borough#126, pickup_zone#128, pickup_service_zone#130, weather_hour#41, temperature_c#132, precipitation_mm#134, precipitation_trace#136, relative_humidity_pct#138, wind_speed_mps#140, present_weather#142, hour_imputed#144, weather_condition#146]
+
+(38) ResultQueryStage
+Output [25]: [pickup_location_id#104, pickup_timestamp#102, dropoff_timestamp#103, passenger_count#105, trip_distance_miles#106, payment_type#107, fare_amount#10, tip_amount#13, total_amount#16, trip_duration_minutes#112, pickup_hour#113, pickup_date#114, pickup_hour_of_day#115, card_tip_percentage#117, pickup_borough#126, pickup_zone#128, pickup_service_zone#130, temperature_c#132, precipitation_mm#134, precipitation_trace#136, relative_humidity_pct#138, wind_speed_mps#140, present_weather#142, hour_imputed#144, weather_condition#146]
+Arguments: 5
+
+(39) Filter
+Input [9]: [tpep_pickup_datetime#1, tpep_dropoff_datetime#2, passenger_count#3L, trip_distance#4, PULocationID#7, payment_type#9L, fare_amount#10, tip_amount#13, total_amount#16]
+Condition : ((((((((((((((((((((((isnotnull(tpep_pickup_datetime#1) AND isnotnull(tpep_dropoff_datetime#2)) AND isnotnull(PULocationID#7)) AND isnotnull(trip_distance#4)) AND isnotnull(fare_amount#10)) AND isnotnull(tip_amount#13)) AND isnotnull(total_amount#16)) AND (tpep_pickup_datetime#1 >= 2024-01-01 00:00:00)) AND (tpep_pickup_datetime#1 < 2024-02-01 00:00:00)) AND isnotnull(cast(tpep_pickup_datetime#1 as timestamp))) AND isnotnull(cast(tpep_dropoff_datetime#2 as timestamp))) AND (PULocationID#7 >= 1)) AND (PULocationID#7 <= 265)) AND ((cast((unix_timestamp(cast(tpep_dropoff_datetime#2 as timestamp), yyyy-MM-dd HH:mm:ss, Some(UTC), true) - unix_timestamp(cast(tpep_pickup_datetime#1 as timestamp), yyyy-MM-dd HH:mm:ss, Some(UTC), true)) as double) / 60.0) >= 1.0)) AND ((cast((unix_timestamp(cast(tpep_dropoff_datetime#2 as timestamp), yyyy-MM-dd HH:mm:ss, Some(UTC), true) - unix_timestamp(cast(tpep_pickup_datetime#1 as timestamp), yyyy-MM-dd HH:mm:ss, Some(UTC), true)) as double) / 60.0) <= 180.0)) AND (trip_distance#4 >= 0.1)) AND (trip_distance#4 <= 100.0)) AND (fare_amount#10 >= 0.0)) AND (fare_amount#10 <= 1000.0)) AND (tip_amount#13 >= 0.0)) AND (tip_amount#13 <= 1000.0)) AND (total_amount#16 >= 0.0)) AND (total_amount#16 <= 2000.0))
+
+(40) Project
+Output [9]: [cast(tpep_pickup_datetime#1 as timestamp) AS pickup_timestamp#102, cast(tpep_dropoff_datetime#2 as timestamp) AS dropoff_timestamp#103, PULocationID#7 AS pickup_location_id#104, cast(passenger_count#3L as double) AS passenger_count#105, trip_distance#4 AS trip_distance_miles#106, cast(payment_type#9L as int) AS payment_type#107, fare_amount#10, tip_amount#13, total_amount#16]
+Input [9]: [tpep_pickup_datetime#1, tpep_dropoff_datetime#2, passenger_count#3L, trip_distance#4, PULocationID#7, payment_type#9L, fare_amount#10, tip_amount#13, total_amount#16]
+
+(41) Project
+Output [14]: [pickup_timestamp#102, dropoff_timestamp#103, pickup_location_id#104, passenger_count#105, trip_distance_miles#106, payment_type#107, fare_amount#10, tip_amount#13, total_amount#16, (cast((unix_timestamp(dropoff_timestamp#103, yyyy-MM-dd HH:mm:ss, Some(UTC), true) - unix_timestamp(pickup_timestamp#102, yyyy-MM-dd HH:mm:ss, Some(UTC), true)) as double) / 60.0) AS trip_duration_minutes#112, date_trunc(hour, pickup_timestamp#102, Some(UTC)) AS pickup_hour#113, cast(pickup_timestamp#102 as date) AS pickup_date#114, hour(pickup_timestamp#102, Some(UTC)) AS pickup_hour_of_day#115, CASE WHEN ((payment_type#107 = 1) AND (fare_amount#10 > 0.0)) THEN ((tip_amount#13 / fare_amount#10) * 100.0) END AS _card_tip_percentage#116]
+Input [9]: [pickup_timestamp#102, dropoff_timestamp#103, pickup_location_id#104, passenger_count#105, trip_distance_miles#106, payment_type#107, fare_amount#10, tip_amount#13, total_amount#16]
+
+(42) Project
+Output [14]: [pickup_timestamp#102, dropoff_timestamp#103, pickup_location_id#104, passenger_count#105, trip_distance_miles#106, payment_type#107, fare_amount#10, tip_amount#13, total_amount#16, trip_duration_minutes#112, pickup_hour#113, pickup_date#114, pickup_hour_of_day#115, CASE WHEN ((_card_tip_percentage#116 >= 0.0) AND (_card_tip_percentage#116 <= 200.0)) THEN _card_tip_percentage#116 END AS card_tip_percentage#117]
+Input [14]: [pickup_timestamp#102, dropoff_timestamp#103, pickup_location_id#104, passenger_count#105, trip_distance_miles#106, payment_type#107, fare_amount#10, tip_amount#13, total_amount#16, trip_duration_minutes#112, pickup_hour#113, pickup_date#114, pickup_hour_of_day#115, _card_tip_percentage#116]
+
+(43) Filter
+Input [4]: [LocationID#37, Borough#38, Zone#39, service_zone#40]
+Condition : (((LocationID#37 >= 1) AND (LocationID#37 <= 265)) AND isnotnull(LocationID#37))
+
+(44) Project
+Output [4]: [LocationID#37 AS pickup_location_id#118, trim(Borough#38, None) AS pickup_borough#119, trim(Zone#39, None) AS pickup_zone#120, trim(service_zone#40, None) AS pickup_service_zone#121]
+Input [4]: [LocationID#37, Borough#38, Zone#39, service_zone#40]
+
+(45) Sort
+Input [4]: [pickup_location_id#118, pickup_borough#119, pickup_zone#120, pickup_service_zone#121]
+Arguments: [pickup_location_id#118 ASC NULLS FIRST], false, 0
+
+(46) SortAggregate
+Input [4]: [pickup_location_id#118, pickup_borough#119, pickup_zone#120, pickup_service_zone#121]
+Keys [1]: [pickup_location_id#118]
+Functions [3]: [partial_first(pickup_borough#119, false), partial_first(pickup_zone#120, false), partial_first(pickup_service_zone#121, false)]
+Aggregate Attributes [6]: [first#147, valueSet#148, first#151, valueSet#152, first#155, valueSet#156]
+Results [7]: [pickup_location_id#118, first#149, valueSet#150, first#153, valueSet#154, first#157, valueSet#158]
+
+(47) Exchange
+Input [7]: [pickup_location_id#118, first#149, valueSet#150, first#153, valueSet#154, first#157, valueSet#158]
+Arguments: hashpartitioning(pickup_location_id#118, 1000), ENSURE_REQUIREMENTS, [plan_id=196]
+
+(48) Sort
+Input [7]: [pickup_location_id#118, first#149, valueSet#150, first#153, valueSet#154, first#157, valueSet#158]
+Arguments: [pickup_location_id#118 ASC NULLS FIRST], false, 0
+
+(49) SortAggregate
+Input [7]: [pickup_location_id#118, first#149, valueSet#150, first#153, valueSet#154, first#157, valueSet#158]
+Keys [1]: [pickup_location_id#118]
+Functions [3]: [first(pickup_borough#119, false), first(pickup_zone#120, false), first(pickup_service_zone#121, false)]
+Aggregate Attributes [3]: [first(pickup_borough#119)()#125, first(pickup_zone#120)()#127, first(pickup_service_zone#121)()#129]
+Results [4]: [pickup_location_id#118, first(pickup_borough#119)()#125 AS pickup_borough#126, first(pickup_zone#120)()#127 AS pickup_zone#128, first(pickup_service_zone#121)()#129 AS pickup_service_zone#130]
+
+(50) BroadcastExchange
+Input [4]: [pickup_location_id#118, pickup_borough#126, pickup_zone#128, pickup_service_zone#130]
+Arguments: HashedRelationBroadcastMode(List(cast(input[0, int, false] as bigint)),false), [plan_id=200]
+
+(51) BroadcastHashJoin
+Left keys [1]: [pickup_location_id#104]
+Right keys [1]: [pickup_location_id#118]
+Join type: LeftOuter
+Join condition: None
+
+(52) Project
+Output [17]: [pickup_location_id#104, pickup_timestamp#102, dropoff_timestamp#103, passenger_count#105, trip_distance_miles#106, payment_type#107, fare_amount#10, tip_amount#13, total_amount#16, trip_duration_minutes#112, pickup_hour#113, pickup_date#114, pickup_hour_of_day#115, card_tip_percentage#117, pickup_borough#126, pickup_zone#128, pickup_service_zone#130]
+Input [18]: [pickup_timestamp#102, dropoff_timestamp#103, pickup_location_id#104, passenger_count#105, trip_distance_miles#106, payment_type#107, fare_amount#10, tip_amount#13, total_amount#16, trip_duration_minutes#112, pickup_hour#113, pickup_date#114, pickup_hour_of_day#115, card_tip_percentage#117, pickup_location_id#118, pickup_borough#126, pickup_zone#128, pickup_service_zone#130]
+
+(53) Filter
+Input [8]: [weather_hour#41, temperature_c#45, precipitation_mm#46, precipitation_trace#47, relative_humidity_pct#48, wind_speed_mps#49, present_weather#51, hour_imputed#52]
+Condition : isnotnull(weather_hour#41)
+
+(54) Project
+Output [9]: [weather_hour#41, temperature_c#45, precipitation_mm#46, precipitation_trace#47, relative_humidity_pct#48, wind_speed_mps#49, present_weather#51, hour_imputed#52, CASE WHEN RLIKE(lower(coalesce(present_weather#51, )), snow|sn) THEN Snow WHEN ((temperature_c#45 <= 1.0) AND (precipitation_mm#46 > 0.0)) THEN Snow WHEN (precipitation_mm#46 >= 2.5) THEN Heavy Rain WHEN ((precipitation_mm#46 > 0.0) OR precipitation_trace#47) THEN Rain ELSE Dry END AS weather_condition#124]
+Input [8]: [weather_hour#41, temperature_c#45, precipitation_mm#46, precipitation_trace#47, relative_humidity_pct#48, wind_speed_mps#49, present_weather#51, hour_imputed#52]
+
+(55) Sort
+Input [9]: [weather_hour#41, temperature_c#45, precipitation_mm#46, precipitation_trace#47, relative_humidity_pct#48, wind_speed_mps#49, present_weather#51, hour_imputed#52, weather_condition#124]
+Arguments: [weather_hour#41 ASC NULLS FIRST], false, 0
+
+(56) SortAggregate
+Input [9]: [weather_hour#41, temperature_c#45, precipitation_mm#46, precipitation_trace#47, relative_humidity_pct#48, wind_speed_mps#49, present_weather#51, hour_imputed#52, weather_condition#124]
+Keys [1]: [weather_hour#41]
+Functions [8]: [partial_first(temperature_c#45, false), partial_first(precipitation_mm#46, false), partial_first(precipitation_trace#47, false), partial_first(relative_humidity_pct#48, false), partial_first(wind_speed_mps#49, false), partial_first(present_weather#51, false), partial_first(hour_imputed#52, false), partial_first(weather_condition#124, false)]
+Aggregate Attributes [16]: [first#159, valueSet#160, first#163, valueSet#164, first#167, valueSet#168, first#171, valueSet#172, first#175, valueSet#176, first#179, valueSet#180, first#183, valueSet#184, first#187, valueSet#188]
+Results [17]: [weather_hour#41, first#161, valueSet#162, first#165, valueSet#166, first#169, valueSet#170, first#173, valueSet#174, first#177, valueSet#178, first#181, valueSet#182, first#185, valueSet#186, first#189, valueSet#190]
+
+(57) Exchange
+Input [17]: [weather_hour#41, first#161, valueSet#162, first#165, valueSet#166, first#169, valueSet#170, first#173, valueSet#174, first#177, valueSet#178, first#181, valueSet#182, first#185, valueSet#186, first#189, valueSet#190]
+Arguments: hashpartitioning(weather_hour#41, 1000), ENSURE_REQUIREMENTS, [plan_id=206]
+
+(58) Sort
+Input [17]: [weather_hour#41, first#161, valueSet#162, first#165, valueSet#166, first#169, valueSet#170, first#173, valueSet#174, first#177, valueSet#178, first#181, valueSet#182, first#185, valueSet#186, first#189, valueSet#190]
+Arguments: [weather_hour#41 ASC NULLS FIRST], false, 0
+
+(59) SortAggregate
+Input [17]: [weather_hour#41, first#161, valueSet#162, first#165, valueSet#166, first#169, valueSet#170, first#173, valueSet#174, first#177, valueSet#178, first#181, valueSet#182, first#185, valueSet#186, first#189, valueSet#190]
+Keys [1]: [weather_hour#41]
+Functions [8]: [first(temperature_c#45, false), first(precipitation_mm#46, false), first(precipitation_trace#47, false), first(relative_humidity_pct#48, false), first(wind_speed_mps#49, false), first(present_weather#51, false), first(hour_imputed#52, false), first(weather_condition#124, false)]
+Aggregate Attributes [8]: [first(temperature_c#45)()#131, first(precipitation_mm#46)()#133, first(precipitation_trace#47)()#135, first(relative_humidity_pct#48)()#137, first(wind_speed_mps#49)()#139, first(present_weather#51)()#141, first(hour_imputed#52)()#143, first(weather_condition#124)()#145]
+Results [9]: [weather_hour#41, first(temperature_c#45)()#131 AS temperature_c#132, first(precipitation_mm#46)()#133 AS precipitation_mm#134, first(precipitation_trace#47)()#135 AS precipitation_trace#136, first(relative_humidity_pct#48)()#137 AS relative_humidity_pct#138, first(wind_speed_mps#49)()#139 AS wind_speed_mps#140, first(present_weather#51)()#141 AS present_weather#142, first(hour_imputed#52)()#143 AS hour_imputed#144, first(weather_condition#124)()#145 AS weather_condition#146]
+
+(60) BroadcastExchange
+Input [9]: [weather_hour#41, temperature_c#132, precipitation_mm#134, precipitation_trace#136, relative_humidity_pct#138, wind_speed_mps#140, present_weather#142, hour_imputed#144, weather_condition#146]
+Arguments: HashedRelationBroadcastMode(List(input[0, timestamp, false]),false), [plan_id=210]
+
+(61) BroadcastHashJoin
+Left keys [1]: [pickup_hour#113]
+Right keys [1]: [weather_hour#41]
+Join type: LeftOuter
+Join condition: None
+
+(62) Project
+Output [25]: [pickup_location_id#104, pickup_timestamp#102, dropoff_timestamp#103, passenger_count#105, trip_distance_miles#106, payment_type#107, fare_amount#10, tip_amount#13, total_amount#16, trip_duration_minutes#112, pickup_hour#113, pickup_date#114, pickup_hour_of_day#115, card_tip_percentage#117, pickup_borough#126, pickup_zone#128, pickup_service_zone#130, temperature_c#132, precipitation_mm#134, precipitation_trace#136, relative_humidity_pct#138, wind_speed_mps#140, present_weather#142, hour_imputed#144, weather_condition#146]
+Input [26]: [pickup_location_id#104, pickup_timestamp#102, dropoff_timestamp#103, passenger_count#105, trip_distance_miles#106, payment_type#107, fare_amount#10, tip_amount#13, total_amount#16, trip_duration_minutes#112, pickup_hour#113, pickup_date#114, pickup_hour_of_day#115, card_tip_percentage#117, pickup_borough#126, pickup_zone#128, pickup_service_zone#130, weather_hour#41, temperature_c#132, precipitation_mm#134, precipitation_trace#136, relative_humidity_pct#138, wind_speed_mps#140, present_weather#142, hour_imputed#144, weather_condition#146]
+
+(63) AdaptiveSparkPlan
+Output [25]: [pickup_location_id#104, pickup_timestamp#102, dropoff_timestamp#103, passenger_count#105, trip_distance_miles#106, payment_type#107, fare_amount#10, tip_amount#13, total_amount#16, trip_duration_minutes#112, pickup_hour#113, pickup_date#114, pickup_hour_of_day#115, card_tip_percentage#117, pickup_borough#126, pickup_zone#128, pickup_service_zone#130, temperature_c#132, precipitation_mm#134, precipitation_trace#136, relative_humidity_pct#138, wind_speed_mps#140, present_weather#142, hour_imputed#144, weather_condition#146]
+Arguments: isFinalPlan=true
+
+(64) AdaptiveSparkPlan
+Output [4]: [pickup_location_id#104, pickup_hour#113, pickup_borough#119, weather_condition#124]
+Arguments: isFinalPlan=false
+
+
+Wrote joined trips to: s3://cs675-taxi-weather-project-066849627846-data/processed/performance_comparison/optimized/january_2024/joined_trips
+Wrote weather_summary to: s3://cs675-taxi-weather-project-066849627846-data/processed/performance_comparison/optimized/january_2024/weather_summary
+Wrote borough_weather_summary to: s3://cs675-taxi-weather-project-066849627846-data/processed/performance_comparison/optimized/january_2024/borough_weather_summary
+Wrote hourly_demand to: s3://cs675-taxi-weather-project-066849627846-data/processed/performance_comparison/optimized/january_2024/hourly_demand
+Wrote zone_weather_summary to: s3://cs675-taxi-weather-project-066849627846-data/processed/performance_comparison/optimized/january_2024/zone_weather_summary

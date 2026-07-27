@@ -1,0 +1,16 @@
+﻿Measure,Daily Join,Hourly Join
+Taxi source rows,2964624,2964624
+Input weather rows,744,744
+Join weather rows,31,744
+Joined rows,2857438,2857438
+Zone match rate,100.00%,100.00%
+Weather match rate,100.00%,100.00%
+Runtime seconds,94,91
+vCPU hours,0.201,0.194
+Memory GB hours,0.804,0.778
+Storage GB hours,1.006,0.972
+Join key,pickup_date = weather_date,pickup_hour = weather_hour
+Weather precision,Daily aggregate,Hourly observation
+Intraday weather variation,Lost,Preserved
+Demand analysis precision,Lower,Higher
+Relative compute cost,Slightly higher,Slightly lower

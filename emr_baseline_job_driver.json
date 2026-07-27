@@ -1,0 +1,16 @@
+{
+  "sparkSubmit": {
+    "entryPoint": "s3://cs675-taxi-weather-project-066849627846-data/scripts/05a_baseline_taxi_weather_analysis.py",
+    "entryPointArguments": [
+      "--taxi-input",
+      "s3://cs675-taxi-weather-project-066849627846-data/raw/taxi/year=2024/month=01/yellow_tripdata_2024-01.parquet",
+      "--zone-input",
+      "s3://cs675-taxi-weather-project-066849627846-data/raw/zone_lookup/taxi_zone_lookup.csv",
+      "--weather-input",
+      "s3://cs675-taxi-weather-project-066849627846-data/processed/weather_hourly/",
+      "--output",
+      "s3://cs675-taxi-weather-project-066849627846-data/processed/performance_comparison/baseline/january_2024/"
+    ],
+    "sparkSubmitParameters": "--conf spark.executor.instances=1"
+  }
+}

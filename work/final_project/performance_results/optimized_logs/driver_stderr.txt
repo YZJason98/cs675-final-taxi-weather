@@ -1,0 +1,402 @@
+WARNING: Using incubator modules: jdk.incubator.vector
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+26/07/27 02:08:05 INFO EMRParamSideChannel: Setting FGAC mode to false
+26/07/27 02:08:05 INFO SparkContext: Running Spark version 4.0.2-amzn-0
+26/07/27 02:08:05 INFO SparkContext: OS info Linux, 6.1.176, amd64
+26/07/27 02:08:05 INFO SparkContext: Java version 17.0.19
+26/07/27 02:08:05 INFO ResourceUtils: ==============================================================
+26/07/27 02:08:05 INFO ResourceUtils: No custom resources configured for spark.driver.
+26/07/27 02:08:05 INFO ResourceUtils: ==============================================================
+26/07/27 02:08:05 INFO SparkContext: Submitted application: cs675-cloud-taxi-weather-analysis
+26/07/27 02:08:05 INFO ResourceProfile: Default ResourceProfile created, executor resources: Map(executorType -> name: executorType, amount: 1, script: , vendor: , cores -> name: cores, amount: 4, script: , vendor: , memory -> name: memory, amount: 14336, script: , vendor: , offHeap -> name: offHeap, amount: 0, script: , vendor: ), task resources: Map(cpus -> name: cpus, amount: 1.0)
+26/07/27 02:08:05 INFO ResourceProfile: Limiting resource is cpus at 4 tasks per executor
+26/07/27 02:08:05 INFO ResourceProfileManager: Added ResourceProfile id: 0
+26/07/27 02:08:05 INFO SecurityManager: Changing view acls to: hadoop
+26/07/27 02:08:05 INFO SecurityManager: Changing modify acls to: hadoop
+26/07/27 02:08:05 INFO SecurityManager: Changing view acls groups to: hadoop
+26/07/27 02:08:05 INFO SecurityManager: Changing modify acls groups to: hadoop
+26/07/27 02:08:05 INFO SecurityManager: SecurityManager: authentication enabled; ui acls disabled; users with view permissions: hadoop groups with view permissions: EMPTY; users with modify permissions: hadoop; groups with modify permissions: EMPTY; RPC SSL disabled
+26/07/27 02:08:05 INFO Utils: Successfully started service 'sparkDriver' on port 33603.
+26/07/27 02:08:05 INFO SparkEnv: Registering MapOutputTracker
+26/07/27 02:08:05 INFO SparkEnv: Registering BlockManagerMaster
+26/07/27 02:08:05 INFO BlockManagerMasterEndpoint: Using org.apache.spark.storage.DefaultTopologyMapper for getting topology information
+26/07/27 02:08:05 INFO BlockManagerMasterEndpoint: BlockManagerMasterEndpoint up
+26/07/27 02:08:05 INFO SparkEnv: Registering BlockManagerMasterHeartbeat
+26/07/27 02:08:06 INFO DiskBlockManager: Created local directory at /tmp/blockmgr-b0034d15-baf8-4a2d-842a-d31924d5a1b6
+26/07/27 02:08:06 INFO SparkEnv: Registering OutputCommitCoordinator
+26/07/27 02:08:06 INFO SubResultCacheManager: Sub-result caches are disabled.
+26/07/27 02:08:06 INFO JettyUtils: Start Jetty 0.0.0.0:4040 for SparkUI
+26/07/27 02:08:06 INFO Utils: Successfully started service 'SparkUI' on port 4040.
+26/07/27 02:08:06 INFO SecurityManager: Changing view acls to: hadoop
+26/07/27 02:08:06 INFO SecurityManager: Changing modify acls to: hadoop
+26/07/27 02:08:06 INFO SecurityManager: Changing view acls groups to: hadoop
+26/07/27 02:08:06 INFO SecurityManager: Changing modify acls groups to: hadoop
+26/07/27 02:08:06 INFO SecurityManager: SecurityManager: authentication enabled; ui acls disabled; users with view permissions: hadoop groups with view permissions: EMPTY; users with modify permissions: hadoop; groups with modify permissions: EMPTY; RPC SSL disabled
+26/07/27 02:08:06 INFO Utils: Using effectiveMaxExecutors = 2147483647, (spark.dynamicAllocation.maxExecutors * spark.dynamicAllocation.maxExecutorsRatio)
+26/07/27 02:08:06 INFO Utils: Using initial executors = 3, min of effectiveMaxExecutors, (max of spark.dynamicAllocation.initialExecutors, spark.dynamicAllocation.minExecutors and spark.executor.instances)
+26/07/27 02:08:06 INFO ExecutorContainerAllocator: Set total expected execs to {0=3}
+26/07/27 02:08:06 INFO ExecutorContainerAllocator: Going to request 3 executors for ResourceProfile Id: 0, target: 3 already provisioned: 0.
+26/07/27 02:08:06 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 43821.
+26/07/27 02:08:06 INFO NettyBlockTransferService: Server created on [2600:1f18:c50:a105:1d3a:fd81:9376:f2bd]:43821
+26/07/27 02:08:06 INFO BlockManager: Using org.apache.spark.storage.RandomBlockReplicationPolicy for block replication policy
+26/07/27 02:08:06 INFO DefaultEmrServerlessRMClient: Creating containers with container role SPARK_EXECUTOR and keys: Set(1, 2, 3)
+26/07/27 02:08:06 INFO BlockManagerMaster: Registering BlockManager BlockManagerId(driver, [2600:1f18:c50:a105:1d3a:fd81:9376:f2bd], 43821, None)
+26/07/27 02:08:06 INFO BlockManagerMasterEndpoint: Registering block manager [2600:1f18:c50:a105:1d3a:fd81:9376:f2bd]:43821 with 8.2 GiB RAM, BlockManagerId(driver, [2600:1f18:c50:a105:1d3a:fd81:9376:f2bd], 43821, None)
+26/07/27 02:08:06 INFO BlockManagerMaster: Registered BlockManager BlockManagerId(driver, [2600:1f18:c50:a105:1d3a:fd81:9376:f2bd], 43821, None)
+26/07/27 02:08:06 INFO BlockManager: Initialized BlockManager: BlockManagerId(driver, [2600:1f18:c50:a105:1d3a:fd81:9376:f2bd], 43821, None)
+26/07/27 02:08:06 INFO TimeBasedRotatingEventLogFilesWriter: rotationIntervalInSeconds = 300, eventFileMinSize = 1048576, maxFilesToRetain = 2
+26/07/27 02:08:06 INFO TimeBasedRotatingEventLogFilesWriter: Logging events to file:/var/log/spark/apps/eventlog_v2_00g7h6j3i50c780b/00g7h6j3i50c780b.inprogress
+26/07/27 02:08:06 INFO DefaultEmrServerlessRMClient: Containers created with container role SPARK_EXECUTOR. key to container id map: HashMap(1 -> f8cfd0a9-7d33-8269-2417-bb82edba0505)
+26/07/27 02:08:06 INFO Utils: Using effectiveMaxExecutors = 2147483647, (spark.dynamicAllocation.maxExecutors * spark.dynamicAllocation.maxExecutorsRatio)
+26/07/27 02:08:06 INFO Utils: Using initial executors = 3, min of effectiveMaxExecutors, (max of spark.dynamicAllocation.initialExecutors, spark.dynamicAllocation.minExecutors and spark.executor.instances)
+26/07/27 02:08:06 INFO ExecutorAllocationManager: Dynamic allocation is enabled without a shuffle service.
+26/07/27 02:08:06 INFO ExecutorContainerAllocator: Set total expected execs to {0=3}
+26/07/27 02:08:07 INFO ExecutorContainerAllocator: Going to request 2 executors for ResourceProfile Id: 0, target: 3 already provisioned: 1.
+26/07/27 02:08:07 INFO DefaultEmrServerlessRMClient: Creating containers with container role SPARK_EXECUTOR and keys: Set(4, 5)
+26/07/27 02:08:07 WARN DefaultEmrServerlessRMClient: Encountered exception when requesting SPARK_EXECUTOR containers. Future container launch rate will be slowed down until recovered. Next call will be allowed after 2000ms.
+software.amazon.awssdk.services.emrserverlessresourcemanager.model.ApplicationMaxCapacityExceededException: Worker could not be allocated as the application has exceeded maximumCapacity settings: [cpu: 8 vCPU, memory: 32 GB] (Service: EmrServerlessResourceManager, Status Code: 402, Request ID: 8ad6c3ba-1f2c-46a6-a4eb-8bf04f48674b) (SDK Attempt Count: 1)
+	at software.amazon.awssdk.services.emrserverlessresourcemanager.model.ApplicationMaxCapacityExceededException$BuilderImpl.build(ApplicationMaxCapacityExceededException.java:124) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at software.amazon.awssdk.services.emrserverlessresourcemanager.model.ApplicationMaxCapacityExceededException$BuilderImpl.build(ApplicationMaxCapacityExceededException.java:78) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at software.amazon.awssdk.core.internal.http.pipeline.stages.utils.RetryableStageHelper.retryPolicyDisallowedRetryException(RetryableStageHelper.java:168) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.stages.RetryableStage.execute(RetryableStage.java:73) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.stages.RetryableStage.execute(RetryableStage.java:36) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.RequestPipelineBuilder$ComposingRequestPipelineStage.execute(RequestPipelineBuilder.java:206) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.StreamManagingStage.execute(StreamManagingStage.java:53) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.StreamManagingStage.execute(StreamManagingStage.java:35) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.stages.ApiCallTimeoutTrackingStage.executeWithTimer(ApiCallTimeoutTrackingStage.java:82) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.stages.ApiCallTimeoutTrackingStage.execute(ApiCallTimeoutTrackingStage.java:62) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.stages.ApiCallTimeoutTrackingStage.execute(ApiCallTimeoutTrackingStage.java:43) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.stages.ApiCallMetricCollectionStage.execute(ApiCallMetricCollectionStage.java:50) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.stages.ApiCallMetricCollectionStage.execute(ApiCallMetricCollectionStage.java:32) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.RequestPipelineBuilder$ComposingRequestPipelineStage.execute(RequestPipelineBuilder.java:206) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.RequestPipelineBuilder$ComposingRequestPipelineStage.execute(RequestPipelineBuilder.java:206) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.stages.ExecutionFailureExceptionReportingStage.execute(ExecutionFailureExceptionReportingStage.java:37) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.stages.ExecutionFailureExceptionReportingStage.execute(ExecutionFailureExceptionReportingStage.java:26) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.AmazonSyncHttpClient$RequestExecutionBuilderImpl.execute(AmazonSyncHttpClient.java:210) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.handler.BaseSyncClientHandler.invoke(BaseSyncClientHandler.java:103) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.handler.BaseSyncClientHandler.doExecute(BaseSyncClientHandler.java:173) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.handler.BaseSyncClientHandler.lambda$execute$1(BaseSyncClientHandler.java:80) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.handler.BaseSyncClientHandler.measureApiCallSuccess(BaseSyncClientHandler.java:182) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.handler.BaseSyncClientHandler.execute(BaseSyncClientHandler.java:74) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.client.handler.SdkSyncClientHandler.execute(SdkSyncClientHandler.java:45) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.awscore.client.handler.AwsSyncClientHandler.execute(AwsSyncClientHandler.java:53) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.services.emrserverlessresourcemanager.DefaultEmrServerlessResourceManagerClient.requestContainers(DefaultEmrServerlessResourceManagerClient.java:316) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.deploy.emrserverless.client.DefaultEmrServerlessRMClient.createSingleBatchContainers(DefaultEmrServerlessRMClient.scala:138) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.deploy.emrserverless.client.DefaultEmrServerlessRMClient.$anonfun$createContainers$2(DefaultEmrServerlessRMClient.scala:64) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at scala.collection.IterableOnceOps.foreach(IterableOnce.scala:619) ~[scala-library-2.13.16.jar:?]
+	at scala.collection.IterableOnceOps.foreach$(IterableOnce.scala:617) ~[scala-library-2.13.16.jar:?]
+	at scala.collection.AbstractIterator.foreach(Iterator.scala:1306) ~[scala-library-2.13.16.jar:?]
+	at org.apache.spark.deploy.emrserverless.client.DefaultEmrServerlessRMClient.createContainers(DefaultEmrServerlessRMClient.scala:63) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.scheduler.cluster.emrserverless.allocator.ExecutorContainerAllocator.requestNewExecutors(ExecutorContainerAllocator.scala:331) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.scheduler.cluster.emrserverless.allocator.ExecutorContainerAllocator.processSingleResourceProfile(ExecutorContainerAllocator.scala:305) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.scheduler.cluster.emrserverless.allocator.ExecutorContainerAllocator.$anonfun$processExecutorsForAllResourceProfiles$5(ExecutorContainerAllocator.scala:222) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.scheduler.cluster.emrserverless.allocator.ExecutorContainerAllocator.$anonfun$processExecutorsForAllResourceProfiles$5$adapted(ExecutorContainerAllocator.scala:219) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at scala.collection.StrictOptimizedIterableOps.map(StrictOptimizedIterableOps.scala:100) ~[scala-library-2.13.16.jar:?]
+	at scala.collection.StrictOptimizedIterableOps.map$(StrictOptimizedIterableOps.scala:87) ~[scala-library-2.13.16.jar:?]
+	at scala.collection.convert.JavaCollectionWrappers$AbstractJMapWrapper.map(JavaCollectionWrappers.scala:344) ~[scala-library-2.13.16.jar:?]
+	at org.apache.spark.scheduler.cluster.emrserverless.allocator.ExecutorContainerAllocator.processExecutorsForAllResourceProfiles(ExecutorContainerAllocator.scala:219) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.scheduler.cluster.emrserverless.allocator.ExecutorContainerAllocator.onNewSnapshot(ExecutorContainerAllocator.scala:159) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.scheduler.cluster.emrserverless.allocator.ExecutorContainerAllocator.$anonfun$start$1(ExecutorContainerAllocator.scala:90) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.scheduler.cluster.emrserverless.allocator.ExecutorContainerAllocator.$anonfun$start$1$adapted(ExecutorContainerAllocator.scala:90) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.scheduler.cluster.emrserverless.store.ExecutorContainerStoreImpl$SnapshotsSubscriber.org$apache$spark$scheduler$cluster$emrserverless$store$ExecutorContainerStoreImpl$SnapshotsSubscriber$$processSnapshotsInternal(ExecutorContainerStoreImpl.scala:198) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.scheduler.cluster.emrserverless.store.ExecutorContainerStoreImpl$SnapshotsSubscriber.processSnapshots(ExecutorContainerStoreImpl.scala:188) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.scheduler.cluster.emrserverless.store.ExecutorContainerStoreImpl.$anonfun$addSubscriber$1(ExecutorContainerStoreImpl.scala:60) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) [?:?]
+	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:305) [?:?]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:305) [?:?]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) [?:?]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) [?:?]
+	at java.base/java.lang.Thread.run(Thread.java:840) [?:?]
+26/07/27 02:08:07 INFO DefaultEmrServerlessRMClient: Containers created with container role SPARK_EXECUTOR. key to container id map: HashMap()
+26/07/27 02:08:09 INFO ExecutorContainerAllocator: Going to request 2 executors for ResourceProfile Id: 0, target: 3 already provisioned: 1.
+26/07/27 02:08:09 INFO DefaultEmrServerlessRMClient: Creating containers with container role SPARK_EXECUTOR and keys: Set(6, 7)
+26/07/27 02:08:09 WARN DefaultEmrServerlessRMClient: Encountered exception when requesting SPARK_EXECUTOR containers. Future container launch rate will be slowed down until recovered. Next call will be allowed after 3000ms.
+software.amazon.awssdk.services.emrserverlessresourcemanager.model.ApplicationMaxCapacityExceededException: Worker could not be allocated as the application has exceeded maximumCapacity settings: [cpu: 8 vCPU, memory: 32 GB] (Service: EmrServerlessResourceManager, Status Code: 402, Request ID: 152dc74b-6265-492b-ac3f-e01314592c52) (SDK Attempt Count: 1)
+	at software.amazon.awssdk.services.emrserverlessresourcemanager.model.ApplicationMaxCapacityExceededException$BuilderImpl.build(ApplicationMaxCapacityExceededException.java:124) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at software.amazon.awssdk.services.emrserverlessresourcemanager.model.ApplicationMaxCapacityExceededException$BuilderImpl.build(ApplicationMaxCapacityExceededException.java:78) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at software.amazon.awssdk.core.internal.http.pipeline.stages.utils.RetryableStageHelper.retryPolicyDisallowedRetryException(RetryableStageHelper.java:168) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.stages.RetryableStage.execute(RetryableStage.java:73) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.stages.RetryableStage.execute(RetryableStage.java:36) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.RequestPipelineBuilder$ComposingRequestPipelineStage.execute(RequestPipelineBuilder.java:206) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.StreamManagingStage.execute(StreamManagingStage.java:53) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.StreamManagingStage.execute(StreamManagingStage.java:35) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.stages.ApiCallTimeoutTrackingStage.executeWithTimer(ApiCallTimeoutTrackingStage.java:82) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.stages.ApiCallTimeoutTrackingStage.execute(ApiCallTimeoutTrackingStage.java:62) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.stages.ApiCallTimeoutTrackingStage.execute(ApiCallTimeoutTrackingStage.java:43) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.stages.ApiCallMetricCollectionStage.execute(ApiCallMetricCollectionStage.java:50) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.stages.ApiCallMetricCollectionStage.execute(ApiCallMetricCollectionStage.java:32) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.RequestPipelineBuilder$ComposingRequestPipelineStage.execute(RequestPipelineBuilder.java:206) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.RequestPipelineBuilder$ComposingRequestPipelineStage.execute(RequestPipelineBuilder.java:206) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.stages.ExecutionFailureExceptionReportingStage.execute(ExecutionFailureExceptionReportingStage.java:37) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.stages.ExecutionFailureExceptionReportingStage.execute(ExecutionFailureExceptionReportingStage.java:26) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.AmazonSyncHttpClient$RequestExecutionBuilderImpl.execute(AmazonSyncHttpClient.java:210) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.handler.BaseSyncClientHandler.invoke(BaseSyncClientHandler.java:103) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.handler.BaseSyncClientHandler.doExecute(BaseSyncClientHandler.java:173) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.handler.BaseSyncClientHandler.lambda$execute$1(BaseSyncClientHandler.java:80) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.handler.BaseSyncClientHandler.measureApiCallSuccess(BaseSyncClientHandler.java:182) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.handler.BaseSyncClientHandler.execute(BaseSyncClientHandler.java:74) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.client.handler.SdkSyncClientHandler.execute(SdkSyncClientHandler.java:45) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.awscore.client.handler.AwsSyncClientHandler.execute(AwsSyncClientHandler.java:53) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.services.emrserverlessresourcemanager.DefaultEmrServerlessResourceManagerClient.requestContainers(DefaultEmrServerlessResourceManagerClient.java:316) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.deploy.emrserverless.client.DefaultEmrServerlessRMClient.createSingleBatchContainers(DefaultEmrServerlessRMClient.scala:138) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.deploy.emrserverless.client.DefaultEmrServerlessRMClient.$anonfun$createContainers$2(DefaultEmrServerlessRMClient.scala:64) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at scala.collection.IterableOnceOps.foreach(IterableOnce.scala:619) ~[scala-library-2.13.16.jar:?]
+	at scala.collection.IterableOnceOps.foreach$(IterableOnce.scala:617) ~[scala-library-2.13.16.jar:?]
+	at scala.collection.AbstractIterator.foreach(Iterator.scala:1306) ~[scala-library-2.13.16.jar:?]
+	at org.apache.spark.deploy.emrserverless.client.DefaultEmrServerlessRMClient.createContainers(DefaultEmrServerlessRMClient.scala:63) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.scheduler.cluster.emrserverless.allocator.ExecutorContainerAllocator.requestNewExecutors(ExecutorContainerAllocator.scala:331) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.scheduler.cluster.emrserverless.allocator.ExecutorContainerAllocator.processSingleResourceProfile(ExecutorContainerAllocator.scala:305) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.scheduler.cluster.emrserverless.allocator.ExecutorContainerAllocator.$anonfun$processExecutorsForAllResourceProfiles$5(ExecutorContainerAllocator.scala:222) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.scheduler.cluster.emrserverless.allocator.ExecutorContainerAllocator.$anonfun$processExecutorsForAllResourceProfiles$5$adapted(ExecutorContainerAllocator.scala:219) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at scala.collection.StrictOptimizedIterableOps.map(StrictOptimizedIterableOps.scala:100) ~[scala-library-2.13.16.jar:?]
+	at scala.collection.StrictOptimizedIterableOps.map$(StrictOptimizedIterableOps.scala:87) ~[scala-library-2.13.16.jar:?]
+	at scala.collection.convert.JavaCollectionWrappers$AbstractJMapWrapper.map(JavaCollectionWrappers.scala:344) ~[scala-library-2.13.16.jar:?]
+	at org.apache.spark.scheduler.cluster.emrserverless.allocator.ExecutorContainerAllocator.processExecutorsForAllResourceProfiles(ExecutorContainerAllocator.scala:219) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.scheduler.cluster.emrserverless.allocator.ExecutorContainerAllocator.onNewSnapshot(ExecutorContainerAllocator.scala:159) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.scheduler.cluster.emrserverless.allocator.ExecutorContainerAllocator.$anonfun$start$1(ExecutorContainerAllocator.scala:90) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.scheduler.cluster.emrserverless.allocator.ExecutorContainerAllocator.$anonfun$start$1$adapted(ExecutorContainerAllocator.scala:90) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.scheduler.cluster.emrserverless.store.ExecutorContainerStoreImpl$SnapshotsSubscriber.org$apache$spark$scheduler$cluster$emrserverless$store$ExecutorContainerStoreImpl$SnapshotsSubscriber$$processSnapshotsInternal(ExecutorContainerStoreImpl.scala:198) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.scheduler.cluster.emrserverless.store.ExecutorContainerStoreImpl$SnapshotsSubscriber.processSnapshots(ExecutorContainerStoreImpl.scala:188) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.scheduler.cluster.emrserverless.store.ExecutorContainerStoreImpl.$anonfun$addSubscriber$1(ExecutorContainerStoreImpl.scala:60) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) [?:?]
+	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:305) [?:?]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:305) [?:?]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) [?:?]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) [?:?]
+	at java.base/java.lang.Thread.run(Thread.java:840) [?:?]
+26/07/27 02:08:09 INFO DefaultEmrServerlessRMClient: Containers created with container role SPARK_EXECUTOR. key to container id map: HashMap()
+26/07/27 02:08:10 INFO EmrServerlessClusterSchedulerBackend$EmrServerlessDriverEndpoint: No executor found for 2600:1f18:c50:a105:49d3:ec7e:158f:98e7:49262
+26/07/27 02:08:11 INFO EmrServerlessClusterSchedulerBackend$EmrServerlessDriverEndpoint: Registered executor NettyRpcEndpointRef(spark-client://Executor) (2600:1f18:c50:a105:49d3:ec7e:158f:98e7:49278) with ID 1, ResourceProfileId 0
+26/07/27 02:08:11 INFO ExecutorMonitor: New executor 1 has registered (new total is 1)
+26/07/27 02:08:11 INFO BlockManagerMasterEndpoint: Registering block manager [2600:1f18:c50:a105:49d3:ec7e:158f:98e7]:39101 with 7.9 GiB RAM, BlockManagerId(1, [2600:1f18:c50:a105:49d3:ec7e:158f:98e7], 39101, None)
+26/07/27 02:08:12 INFO ExecutorContainerAllocator: Going to request 2 executors for ResourceProfile Id: 0, target: 3 already provisioned: 1.
+26/07/27 02:08:12 INFO DefaultEmrServerlessRMClient: Creating containers with container role SPARK_EXECUTOR and keys: Set(8, 9)
+26/07/27 02:08:12 WARN DefaultEmrServerlessRMClient: Encountered exception when requesting SPARK_EXECUTOR containers. Future container launch rate will be slowed down until recovered. Next call will be allowed after 4000ms.
+software.amazon.awssdk.services.emrserverlessresourcemanager.model.ApplicationMaxCapacityExceededException: Worker could not be allocated as the application has exceeded maximumCapacity settings: [cpu: 8 vCPU, memory: 32 GB] (Service: EmrServerlessResourceManager, Status Code: 402, Request ID: 62e45b07-9860-4281-bf6e-a983f6018a9f) (SDK Attempt Count: 1)
+	at software.amazon.awssdk.services.emrserverlessresourcemanager.model.ApplicationMaxCapacityExceededException$BuilderImpl.build(ApplicationMaxCapacityExceededException.java:124) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at software.amazon.awssdk.services.emrserverlessresourcemanager.model.ApplicationMaxCapacityExceededException$BuilderImpl.build(ApplicationMaxCapacityExceededException.java:78) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at software.amazon.awssdk.core.internal.http.pipeline.stages.utils.RetryableStageHelper.retryPolicyDisallowedRetryException(RetryableStageHelper.java:168) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.stages.RetryableStage.execute(RetryableStage.java:73) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.stages.RetryableStage.execute(RetryableStage.java:36) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.RequestPipelineBuilder$ComposingRequestPipelineStage.execute(RequestPipelineBuilder.java:206) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.StreamManagingStage.execute(StreamManagingStage.java:53) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.StreamManagingStage.execute(StreamManagingStage.java:35) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.stages.ApiCallTimeoutTrackingStage.executeWithTimer(ApiCallTimeoutTrackingStage.java:82) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.stages.ApiCallTimeoutTrackingStage.execute(ApiCallTimeoutTrackingStage.java:62) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.stages.ApiCallTimeoutTrackingStage.execute(ApiCallTimeoutTrackingStage.java:43) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.stages.ApiCallMetricCollectionStage.execute(ApiCallMetricCollectionStage.java:50) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.stages.ApiCallMetricCollectionStage.execute(ApiCallMetricCollectionStage.java:32) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.RequestPipelineBuilder$ComposingRequestPipelineStage.execute(RequestPipelineBuilder.java:206) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.RequestPipelineBuilder$ComposingRequestPipelineStage.execute(RequestPipelineBuilder.java:206) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.stages.ExecutionFailureExceptionReportingStage.execute(ExecutionFailureExceptionReportingStage.java:37) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.stages.ExecutionFailureExceptionReportingStage.execute(ExecutionFailureExceptionReportingStage.java:26) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.AmazonSyncHttpClient$RequestExecutionBuilderImpl.execute(AmazonSyncHttpClient.java:210) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.handler.BaseSyncClientHandler.invoke(BaseSyncClientHandler.java:103) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.handler.BaseSyncClientHandler.doExecute(BaseSyncClientHandler.java:173) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.handler.BaseSyncClientHandler.lambda$execute$1(BaseSyncClientHandler.java:80) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.handler.BaseSyncClientHandler.measureApiCallSuccess(BaseSyncClientHandler.java:182) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.handler.BaseSyncClientHandler.execute(BaseSyncClientHandler.java:74) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.client.handler.SdkSyncClientHandler.execute(SdkSyncClientHandler.java:45) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.awscore.client.handler.AwsSyncClientHandler.execute(AwsSyncClientHandler.java:53) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.services.emrserverlessresourcemanager.DefaultEmrServerlessResourceManagerClient.requestContainers(DefaultEmrServerlessResourceManagerClient.java:316) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.deploy.emrserverless.client.DefaultEmrServerlessRMClient.createSingleBatchContainers(DefaultEmrServerlessRMClient.scala:138) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.deploy.emrserverless.client.DefaultEmrServerlessRMClient.$anonfun$createContainers$2(DefaultEmrServerlessRMClient.scala:64) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at scala.collection.IterableOnceOps.foreach(IterableOnce.scala:619) ~[scala-library-2.13.16.jar:?]
+	at scala.collection.IterableOnceOps.foreach$(IterableOnce.scala:617) ~[scala-library-2.13.16.jar:?]
+	at scala.collection.AbstractIterator.foreach(Iterator.scala:1306) ~[scala-library-2.13.16.jar:?]
+	at org.apache.spark.deploy.emrserverless.client.DefaultEmrServerlessRMClient.createContainers(DefaultEmrServerlessRMClient.scala:63) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.scheduler.cluster.emrserverless.allocator.ExecutorContainerAllocator.requestNewExecutors(ExecutorContainerAllocator.scala:331) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.scheduler.cluster.emrserverless.allocator.ExecutorContainerAllocator.processSingleResourceProfile(ExecutorContainerAllocator.scala:305) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.scheduler.cluster.emrserverless.allocator.ExecutorContainerAllocator.$anonfun$processExecutorsForAllResourceProfiles$5(ExecutorContainerAllocator.scala:222) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.scheduler.cluster.emrserverless.allocator.ExecutorContainerAllocator.$anonfun$processExecutorsForAllResourceProfiles$5$adapted(ExecutorContainerAllocator.scala:219) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at scala.collection.StrictOptimizedIterableOps.map(StrictOptimizedIterableOps.scala:100) ~[scala-library-2.13.16.jar:?]
+	at scala.collection.StrictOptimizedIterableOps.map$(StrictOptimizedIterableOps.scala:87) ~[scala-library-2.13.16.jar:?]
+	at scala.collection.convert.JavaCollectionWrappers$AbstractJMapWrapper.map(JavaCollectionWrappers.scala:344) ~[scala-library-2.13.16.jar:?]
+	at org.apache.spark.scheduler.cluster.emrserverless.allocator.ExecutorContainerAllocator.processExecutorsForAllResourceProfiles(ExecutorContainerAllocator.scala:219) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.scheduler.cluster.emrserverless.allocator.ExecutorContainerAllocator.onNewSnapshot(ExecutorContainerAllocator.scala:159) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.scheduler.cluster.emrserverless.allocator.ExecutorContainerAllocator.$anonfun$start$1(ExecutorContainerAllocator.scala:90) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.scheduler.cluster.emrserverless.allocator.ExecutorContainerAllocator.$anonfun$start$1$adapted(ExecutorContainerAllocator.scala:90) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.scheduler.cluster.emrserverless.store.ExecutorContainerStoreImpl$SnapshotsSubscriber.org$apache$spark$scheduler$cluster$emrserverless$store$ExecutorContainerStoreImpl$SnapshotsSubscriber$$processSnapshotsInternal(ExecutorContainerStoreImpl.scala:198) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.scheduler.cluster.emrserverless.store.ExecutorContainerStoreImpl$SnapshotsSubscriber.processSnapshots(ExecutorContainerStoreImpl.scala:188) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.scheduler.cluster.emrserverless.store.ExecutorContainerStoreImpl.$anonfun$addSubscriber$1(ExecutorContainerStoreImpl.scala:60) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) [?:?]
+	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:305) [?:?]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:305) [?:?]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) [?:?]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) [?:?]
+	at java.base/java.lang.Thread.run(Thread.java:840) [?:?]
+26/07/27 02:08:12 INFO DefaultEmrServerlessRMClient: Containers created with container role SPARK_EXECUTOR. key to container id map: HashMap()
+26/07/27 02:08:16 INFO ExecutorContainerAllocator: Going to request 2 executors for ResourceProfile Id: 0, target: 3 already provisioned: 1.
+26/07/27 02:08:16 INFO DefaultEmrServerlessRMClient: Creating containers with container role SPARK_EXECUTOR and keys: Set(10, 11)
+26/07/27 02:08:17 WARN DefaultEmrServerlessRMClient: Encountered exception when requesting SPARK_EXECUTOR containers. Future container launch rate will be slowed down until recovered. Next call will be allowed after 6000ms.
+software.amazon.awssdk.services.emrserverlessresourcemanager.model.ApplicationMaxCapacityExceededException: Worker could not be allocated as the application has exceeded maximumCapacity settings: [cpu: 8 vCPU, memory: 32 GB] (Service: EmrServerlessResourceManager, Status Code: 402, Request ID: 40a3900d-130c-4c2f-8f59-63b8257aefec) (SDK Attempt Count: 1)
+	at software.amazon.awssdk.services.emrserverlessresourcemanager.model.ApplicationMaxCapacityExceededException$BuilderImpl.build(ApplicationMaxCapacityExceededException.java:124) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at software.amazon.awssdk.services.emrserverlessresourcemanager.model.ApplicationMaxCapacityExceededException$BuilderImpl.build(ApplicationMaxCapacityExceededException.java:78) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at software.amazon.awssdk.core.internal.http.pipeline.stages.utils.RetryableStageHelper.retryPolicyDisallowedRetryException(RetryableStageHelper.java:168) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.stages.RetryableStage.execute(RetryableStage.java:73) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.stages.RetryableStage.execute(RetryableStage.java:36) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.RequestPipelineBuilder$ComposingRequestPipelineStage.execute(RequestPipelineBuilder.java:206) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.StreamManagingStage.execute(StreamManagingStage.java:53) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.StreamManagingStage.execute(StreamManagingStage.java:35) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.stages.ApiCallTimeoutTrackingStage.executeWithTimer(ApiCallTimeoutTrackingStage.java:82) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.stages.ApiCallTimeoutTrackingStage.execute(ApiCallTimeoutTrackingStage.java:62) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.stages.ApiCallTimeoutTrackingStage.execute(ApiCallTimeoutTrackingStage.java:43) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.stages.ApiCallMetricCollectionStage.execute(ApiCallMetricCollectionStage.java:50) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.stages.ApiCallMetricCollectionStage.execute(ApiCallMetricCollectionStage.java:32) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.RequestPipelineBuilder$ComposingRequestPipelineStage.execute(RequestPipelineBuilder.java:206) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.RequestPipelineBuilder$ComposingRequestPipelineStage.execute(RequestPipelineBuilder.java:206) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.stages.ExecutionFailureExceptionReportingStage.execute(ExecutionFailureExceptionReportingStage.java:37) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.stages.ExecutionFailureExceptionReportingStage.execute(ExecutionFailureExceptionReportingStage.java:26) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.AmazonSyncHttpClient$RequestExecutionBuilderImpl.execute(AmazonSyncHttpClient.java:210) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.handler.BaseSyncClientHandler.invoke(BaseSyncClientHandler.java:103) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.handler.BaseSyncClientHandler.doExecute(BaseSyncClientHandler.java:173) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.handler.BaseSyncClientHandler.lambda$execute$1(BaseSyncClientHandler.java:80) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.handler.BaseSyncClientHandler.measureApiCallSuccess(BaseSyncClientHandler.java:182) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.handler.BaseSyncClientHandler.execute(BaseSyncClientHandler.java:74) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.client.handler.SdkSyncClientHandler.execute(SdkSyncClientHandler.java:45) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.awscore.client.handler.AwsSyncClientHandler.execute(AwsSyncClientHandler.java:53) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.services.emrserverlessresourcemanager.DefaultEmrServerlessResourceManagerClient.requestContainers(DefaultEmrServerlessResourceManagerClient.java:316) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.deploy.emrserverless.client.DefaultEmrServerlessRMClient.createSingleBatchContainers(DefaultEmrServerlessRMClient.scala:138) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.deploy.emrserverless.client.DefaultEmrServerlessRMClient.$anonfun$createContainers$2(DefaultEmrServerlessRMClient.scala:64) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at scala.collection.IterableOnceOps.foreach(IterableOnce.scala:619) ~[scala-library-2.13.16.jar:?]
+	at scala.collection.IterableOnceOps.foreach$(IterableOnce.scala:617) ~[scala-library-2.13.16.jar:?]
+	at scala.collection.AbstractIterator.foreach(Iterator.scala:1306) ~[scala-library-2.13.16.jar:?]
+	at org.apache.spark.deploy.emrserverless.client.DefaultEmrServerlessRMClient.createContainers(DefaultEmrServerlessRMClient.scala:63) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.scheduler.cluster.emrserverless.allocator.ExecutorContainerAllocator.requestNewExecutors(ExecutorContainerAllocator.scala:331) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.scheduler.cluster.emrserverless.allocator.ExecutorContainerAllocator.processSingleResourceProfile(ExecutorContainerAllocator.scala:305) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.scheduler.cluster.emrserverless.allocator.ExecutorContainerAllocator.$anonfun$processExecutorsForAllResourceProfiles$5(ExecutorContainerAllocator.scala:222) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.scheduler.cluster.emrserverless.allocator.ExecutorContainerAllocator.$anonfun$processExecutorsForAllResourceProfiles$5$adapted(ExecutorContainerAllocator.scala:219) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at scala.collection.StrictOptimizedIterableOps.map(StrictOptimizedIterableOps.scala:100) ~[scala-library-2.13.16.jar:?]
+	at scala.collection.StrictOptimizedIterableOps.map$(StrictOptimizedIterableOps.scala:87) ~[scala-library-2.13.16.jar:?]
+	at scala.collection.convert.JavaCollectionWrappers$AbstractJMapWrapper.map(JavaCollectionWrappers.scala:344) ~[scala-library-2.13.16.jar:?]
+	at org.apache.spark.scheduler.cluster.emrserverless.allocator.ExecutorContainerAllocator.processExecutorsForAllResourceProfiles(ExecutorContainerAllocator.scala:219) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.scheduler.cluster.emrserverless.allocator.ExecutorContainerAllocator.onNewSnapshot(ExecutorContainerAllocator.scala:159) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.scheduler.cluster.emrserverless.allocator.ExecutorContainerAllocator.$anonfun$start$1(ExecutorContainerAllocator.scala:90) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.scheduler.cluster.emrserverless.allocator.ExecutorContainerAllocator.$anonfun$start$1$adapted(ExecutorContainerAllocator.scala:90) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.scheduler.cluster.emrserverless.store.ExecutorContainerStoreImpl$SnapshotsSubscriber.org$apache$spark$scheduler$cluster$emrserverless$store$ExecutorContainerStoreImpl$SnapshotsSubscriber$$processSnapshotsInternal(ExecutorContainerStoreImpl.scala:198) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.scheduler.cluster.emrserverless.store.ExecutorContainerStoreImpl$SnapshotsSubscriber.processSnapshots(ExecutorContainerStoreImpl.scala:188) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.scheduler.cluster.emrserverless.store.ExecutorContainerStoreImpl.$anonfun$addSubscriber$1(ExecutorContainerStoreImpl.scala:60) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) [?:?]
+	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:305) [?:?]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:305) [?:?]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) [?:?]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) [?:?]
+	at java.base/java.lang.Thread.run(Thread.java:840) [?:?]
+26/07/27 02:08:17 INFO DefaultEmrServerlessRMClient: Containers created with container role SPARK_EXECUTOR. key to container id map: HashMap()
+26/07/27 02:08:23 INFO ExecutorContainerAllocator: Going to request 2 executors for ResourceProfile Id: 0, target: 3 already provisioned: 1.
+26/07/27 02:08:23 INFO DefaultEmrServerlessRMClient: Creating containers with container role SPARK_EXECUTOR and keys: Set(12, 13)
+26/07/27 02:08:23 WARN DefaultEmrServerlessRMClient: Encountered exception when requesting SPARK_EXECUTOR containers. Future container launch rate will be slowed down until recovered. Next call will be allowed after 8000ms.
+software.amazon.awssdk.services.emrserverlessresourcemanager.model.ApplicationMaxCapacityExceededException: Worker could not be allocated as the application has exceeded maximumCapacity settings: [cpu: 8 vCPU, memory: 32 GB] (Service: EmrServerlessResourceManager, Status Code: 402, Request ID: 80a256c8-e9bb-4a34-ac5e-1d5e24185d62) (SDK Attempt Count: 1)
+	at software.amazon.awssdk.services.emrserverlessresourcemanager.model.ApplicationMaxCapacityExceededException$BuilderImpl.build(ApplicationMaxCapacityExceededException.java:124) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at software.amazon.awssdk.services.emrserverlessresourcemanager.model.ApplicationMaxCapacityExceededException$BuilderImpl.build(ApplicationMaxCapacityExceededException.java:78) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at software.amazon.awssdk.core.internal.http.pipeline.stages.utils.RetryableStageHelper.retryPolicyDisallowedRetryException(RetryableStageHelper.java:168) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.stages.RetryableStage.execute(RetryableStage.java:73) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.stages.RetryableStage.execute(RetryableStage.java:36) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.RequestPipelineBuilder$ComposingRequestPipelineStage.execute(RequestPipelineBuilder.java:206) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.StreamManagingStage.execute(StreamManagingStage.java:53) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.StreamManagingStage.execute(StreamManagingStage.java:35) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.stages.ApiCallTimeoutTrackingStage.executeWithTimer(ApiCallTimeoutTrackingStage.java:82) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.stages.ApiCallTimeoutTrackingStage.execute(ApiCallTimeoutTrackingStage.java:62) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.stages.ApiCallTimeoutTrackingStage.execute(ApiCallTimeoutTrackingStage.java:43) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.stages.ApiCallMetricCollectionStage.execute(ApiCallMetricCollectionStage.java:50) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.stages.ApiCallMetricCollectionStage.execute(ApiCallMetricCollectionStage.java:32) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.RequestPipelineBuilder$ComposingRequestPipelineStage.execute(RequestPipelineBuilder.java:206) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.RequestPipelineBuilder$ComposingRequestPipelineStage.execute(RequestPipelineBuilder.java:206) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.stages.ExecutionFailureExceptionReportingStage.execute(ExecutionFailureExceptionReportingStage.java:37) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.stages.ExecutionFailureExceptionReportingStage.execute(ExecutionFailureExceptionReportingStage.java:26) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.AmazonSyncHttpClient$RequestExecutionBuilderImpl.execute(AmazonSyncHttpClient.java:210) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.handler.BaseSyncClientHandler.invoke(BaseSyncClientHandler.java:103) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.handler.BaseSyncClientHandler.doExecute(BaseSyncClientHandler.java:173) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.handler.BaseSyncClientHandler.lambda$execute$1(BaseSyncClientHandler.java:80) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.handler.BaseSyncClientHandler.measureApiCallSuccess(BaseSyncClientHandler.java:182) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.handler.BaseSyncClientHandler.execute(BaseSyncClientHandler.java:74) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.client.handler.SdkSyncClientHandler.execute(SdkSyncClientHandler.java:45) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.awscore.client.handler.AwsSyncClientHandler.execute(AwsSyncClientHandler.java:53) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.services.emrserverlessresourcemanager.DefaultEmrServerlessResourceManagerClient.requestContainers(DefaultEmrServerlessResourceManagerClient.java:316) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.deploy.emrserverless.client.DefaultEmrServerlessRMClient.createSingleBatchContainers(DefaultEmrServerlessRMClient.scala:138) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.deploy.emrserverless.client.DefaultEmrServerlessRMClient.$anonfun$createContainers$2(DefaultEmrServerlessRMClient.scala:64) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at scala.collection.IterableOnceOps.foreach(IterableOnce.scala:619) ~[scala-library-2.13.16.jar:?]
+	at scala.collection.IterableOnceOps.foreach$(IterableOnce.scala:617) ~[scala-library-2.13.16.jar:?]
+	at scala.collection.AbstractIterator.foreach(Iterator.scala:1306) ~[scala-library-2.13.16.jar:?]
+	at org.apache.spark.deploy.emrserverless.client.DefaultEmrServerlessRMClient.createContainers(DefaultEmrServerlessRMClient.scala:63) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.scheduler.cluster.emrserverless.allocator.ExecutorContainerAllocator.requestNewExecutors(ExecutorContainerAllocator.scala:331) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.scheduler.cluster.emrserverless.allocator.ExecutorContainerAllocator.processSingleResourceProfile(ExecutorContainerAllocator.scala:305) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.scheduler.cluster.emrserverless.allocator.ExecutorContainerAllocator.$anonfun$processExecutorsForAllResourceProfiles$5(ExecutorContainerAllocator.scala:222) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.scheduler.cluster.emrserverless.allocator.ExecutorContainerAllocator.$anonfun$processExecutorsForAllResourceProfiles$5$adapted(ExecutorContainerAllocator.scala:219) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at scala.collection.StrictOptimizedIterableOps.map(StrictOptimizedIterableOps.scala:100) ~[scala-library-2.13.16.jar:?]
+	at scala.collection.StrictOptimizedIterableOps.map$(StrictOptimizedIterableOps.scala:87) ~[scala-library-2.13.16.jar:?]
+	at scala.collection.convert.JavaCollectionWrappers$AbstractJMapWrapper.map(JavaCollectionWrappers.scala:344) ~[scala-library-2.13.16.jar:?]
+	at org.apache.spark.scheduler.cluster.emrserverless.allocator.ExecutorContainerAllocator.processExecutorsForAllResourceProfiles(ExecutorContainerAllocator.scala:219) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.scheduler.cluster.emrserverless.allocator.ExecutorContainerAllocator.onNewSnapshot(ExecutorContainerAllocator.scala:159) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.scheduler.cluster.emrserverless.allocator.ExecutorContainerAllocator.$anonfun$start$1(ExecutorContainerAllocator.scala:90) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.scheduler.cluster.emrserverless.allocator.ExecutorContainerAllocator.$anonfun$start$1$adapted(ExecutorContainerAllocator.scala:90) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.scheduler.cluster.emrserverless.store.ExecutorContainerStoreImpl$SnapshotsSubscriber.org$apache$spark$scheduler$cluster$emrserverless$store$ExecutorContainerStoreImpl$SnapshotsSubscriber$$processSnapshotsInternal(ExecutorContainerStoreImpl.scala:198) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.scheduler.cluster.emrserverless.store.ExecutorContainerStoreImpl$SnapshotsSubscriber.processSnapshots(ExecutorContainerStoreImpl.scala:188) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.scheduler.cluster.emrserverless.store.ExecutorContainerStoreImpl.$anonfun$addSubscriber$1(ExecutorContainerStoreImpl.scala:60) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) [?:?]
+	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:305) [?:?]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:305) [?:?]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) [?:?]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) [?:?]
+	at java.base/java.lang.Thread.run(Thread.java:840) [?:?]
+26/07/27 02:08:23 INFO DefaultEmrServerlessRMClient: Containers created with container role SPARK_EXECUTOR. key to container id map: HashMap()
+26/07/27 02:08:31 INFO ExecutorContainerAllocator: Going to request 2 executors for ResourceProfile Id: 0, target: 3 already provisioned: 1.
+26/07/27 02:08:31 INFO DefaultEmrServerlessRMClient: Creating containers with container role SPARK_EXECUTOR and keys: Set(14, 15)
+26/07/27 02:08:31 WARN DefaultEmrServerlessRMClient: Encountered exception when requesting SPARK_EXECUTOR containers. Future container launch rate will be slowed down until recovered. Next call will be allowed after 12000ms.
+software.amazon.awssdk.services.emrserverlessresourcemanager.model.ApplicationMaxCapacityExceededException: Worker could not be allocated as the application has exceeded maximumCapacity settings: [cpu: 8 vCPU, memory: 32 GB] (Service: EmrServerlessResourceManager, Status Code: 402, Request ID: f80e6a55-daf8-4b70-a32a-b1d25cc05fa0) (SDK Attempt Count: 1)
+	at software.amazon.awssdk.services.emrserverlessresourcemanager.model.ApplicationMaxCapacityExceededException$BuilderImpl.build(ApplicationMaxCapacityExceededException.java:124) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at software.amazon.awssdk.services.emrserverlessresourcemanager.model.ApplicationMaxCapacityExceededException$BuilderImpl.build(ApplicationMaxCapacityExceededException.java:78) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at software.amazon.awssdk.core.internal.http.pipeline.stages.utils.RetryableStageHelper.retryPolicyDisallowedRetryException(RetryableStageHelper.java:168) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.stages.RetryableStage.execute(RetryableStage.java:73) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.stages.RetryableStage.execute(RetryableStage.java:36) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.RequestPipelineBuilder$ComposingRequestPipelineStage.execute(RequestPipelineBuilder.java:206) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.StreamManagingStage.execute(StreamManagingStage.java:53) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.StreamManagingStage.execute(StreamManagingStage.java:35) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.stages.ApiCallTimeoutTrackingStage.executeWithTimer(ApiCallTimeoutTrackingStage.java:82) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.stages.ApiCallTimeoutTrackingStage.execute(ApiCallTimeoutTrackingStage.java:62) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.stages.ApiCallTimeoutTrackingStage.execute(ApiCallTimeoutTrackingStage.java:43) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.stages.ApiCallMetricCollectionStage.execute(ApiCallMetricCollectionStage.java:50) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.stages.ApiCallMetricCollectionStage.execute(ApiCallMetricCollectionStage.java:32) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.RequestPipelineBuilder$ComposingRequestPipelineStage.execute(RequestPipelineBuilder.java:206) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.RequestPipelineBuilder$ComposingRequestPipelineStage.execute(RequestPipelineBuilder.java:206) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.stages.ExecutionFailureExceptionReportingStage.execute(ExecutionFailureExceptionReportingStage.java:37) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.pipeline.stages.ExecutionFailureExceptionReportingStage.execute(ExecutionFailureExceptionReportingStage.java:26) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.http.AmazonSyncHttpClient$RequestExecutionBuilderImpl.execute(AmazonSyncHttpClient.java:210) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.handler.BaseSyncClientHandler.invoke(BaseSyncClientHandler.java:103) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.handler.BaseSyncClientHandler.doExecute(BaseSyncClientHandler.java:173) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.handler.BaseSyncClientHandler.lambda$execute$1(BaseSyncClientHandler.java:80) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.handler.BaseSyncClientHandler.measureApiCallSuccess(BaseSyncClientHandler.java:182) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.internal.handler.BaseSyncClientHandler.execute(BaseSyncClientHandler.java:74) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.core.client.handler.SdkSyncClientHandler.execute(SdkSyncClientHandler.java:45) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.awscore.client.handler.AwsSyncClientHandler.execute(AwsSyncClientHandler.java:53) ~[aws-sdk-java-bundle-2.41.32.jar:?]
+	at software.amazon.awssdk.services.emrserverlessresourcemanager.DefaultEmrServerlessResourceManagerClient.requestContainers(DefaultEmrServerlessResourceManagerClient.java:316) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.deploy.emrserverless.client.DefaultEmrServerlessRMClient.createSingleBatchContainers(DefaultEmrServerlessRMClient.scala:138) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.deploy.emrserverless.client.DefaultEmrServerlessRMClient.$anonfun$createContainers$2(DefaultEmrServerlessRMClient.scala:64) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at scala.collection.IterableOnceOps.foreach(IterableOnce.scala:619) ~[scala-library-2.13.16.jar:?]
+	at scala.collection.IterableOnceOps.foreach$(IterableOnce.scala:617) ~[scala-library-2.13.16.jar:?]
+	at scala.collection.AbstractIterator.foreach(Iterator.scala:1306) ~[scala-library-2.13.16.jar:?]
+	at org.apache.spark.deploy.emrserverless.client.DefaultEmrServerlessRMClient.createContainers(DefaultEmrServerlessRMClient.scala:63) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.scheduler.cluster.emrserverless.allocator.ExecutorContainerAllocator.requestNewExecutors(ExecutorContainerAllocator.scala:331) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.scheduler.cluster.emrserverless.allocator.ExecutorContainerAllocator.processSingleResourceProfile(ExecutorContainerAllocator.scala:305) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.scheduler.cluster.emrserverless.allocator.ExecutorContainerAllocator.$anonfun$processExecutorsForAllResourceProfiles$5(ExecutorContainerAllocator.scala:222) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.scheduler.cluster.emrserverless.allocator.ExecutorContainerAllocator.$anonfun$processExecutorsForAllResourceProfiles$5$adapted(ExecutorContainerAllocator.scala:219) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at scala.collection.StrictOptimizedIterableOps.map(StrictOptimizedIterableOps.scala:100) ~[scala-library-2.13.16.jar:?]
+	at scala.collection.StrictOptimizedIterableOps.map$(StrictOptimizedIterableOps.scala:87) ~[scala-library-2.13.16.jar:?]
+	at scala.collection.convert.JavaCollectionWrappers$AbstractJMapWrapper.map(JavaCollectionWrappers.scala:344) ~[scala-library-2.13.16.jar:?]
+	at org.apache.spark.scheduler.cluster.emrserverless.allocator.ExecutorContainerAllocator.processExecutorsForAllResourceProfiles(ExecutorContainerAllocator.scala:219) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.scheduler.cluster.emrserverless.allocator.ExecutorContainerAllocator.onNewSnapshot(ExecutorContainerAllocator.scala:159) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.scheduler.cluster.emrserverless.allocator.ExecutorContainerAllocator.$anonfun$start$1(ExecutorContainerAllocator.scala:90) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.scheduler.cluster.emrserverless.allocator.ExecutorContainerAllocator.$anonfun$start$1$adapted(ExecutorContainerAllocator.scala:90) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.scheduler.cluster.emrserverless.store.ExecutorContainerStoreImpl$SnapshotsSubscriber.org$apache$spark$scheduler$cluster$emrserverless$store$ExecutorContainerStoreImpl$SnapshotsSubscriber$$processSnapshotsInternal(ExecutorContainerStoreImpl.scala:198) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.scheduler.cluster.emrserverless.store.ExecutorContainerStoreImpl$SnapshotsSubscriber.processSnapshots(ExecutorContainerStoreImpl.scala:188) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at org.apache.spark.scheduler.cluster.emrserverless.store.ExecutorContainerStoreImpl.$anonfun$addSubscriber$1(ExecutorContainerStoreImpl.scala:60) ~[emr-serverless-spark-goodies-2.22.1-spark.jar:2.22.1-spark]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) [?:?]
+	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:305) [?:?]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:305) [?:?]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) [?:?]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) [?:?]
+	at java.base/java.lang.Thread.run(Thread.java:840) [?:?]
+26/07/27 02:08:31 INFO DefaultEmrServerlessRMClient: Containers created with container role SPARK_EXECUTOR. key to container id map: HashMap()
+26/07/27 02:08:36 INFO EmrServerlessClusterSchedulerBackend: SchedulerBackend is ready for scheduling beginning after waiting maxRegisteredResourcesWaitingTime: 30000.0(ms)

@@ -1,0 +1,235 @@
+
+=== Reading project datasets ===
+Taxi source rows: 2,964,624
+Hourly weather rows: 8,783
+
+=== Cloud taxi-weather join validation ===
+Cleaned and joined rows: 2,857,438
+Zone match rate: 100.00%
+Weather match rate: 100.00%
+
+=== Spark physical plan ===
+== Physical Plan ==
+* Project (29)
++- * SortMergeJoin LeftOuter (28)
+   :- * Sort (18)
+   :  +- Exchange (17)
+   :     +- * Project (16)
+   :        +- * SortMergeJoin LeftOuter (15)
+   :           :- * Sort (6)
+   :           :  +- Exchange (5)
+   :           :     +- * Project (4)
+   :           :        +- * Filter (3)
+   :           :           +- * ColumnarToRow (2)
+   :           :              +- Scan parquet  (1)
+   :           +- SortAggregate (14)
+   :              +- * Sort (13)
+   :                 +- Exchange (12)
+   :                    +- SortAggregate (11)
+   :                       +- * Sort (10)
+   :                          +- * Project (9)
+   :                             +- * Filter (8)
+   :                                +- Scan csv  (7)
+   +- SortAggregate (27)
+      +- * Sort (26)
+         +- Exchange (25)
+            +- SortAggregate (24)
+               +- * Sort (23)
+                  +- * Project (22)
+                     +- * Filter (21)
+                        +- * ColumnarToRow (20)
+                           +- Scan parquet  (19)
+
+
+(1) Scan parquet 
+Output [7]: [tpep_pickup_datetime#1, tpep_dropoff_datetime#2, trip_distance#4, PULocationID#7, fare_amount#10, tip_amount#13, total_amount#16]
+Batched: true
+Location: InMemoryFileIndex [s3://cs675-taxi-weather-project-066849627846-data/raw/taxi/year=2024/month=01/yellow_tripdata_2024-01.parquet]
+PushedFilters: [IsNotNull(tpep_pickup_datetime), IsNotNull(tpep_dropoff_datetime), IsNotNull(PULocationID), IsNotNull(trip_distance), IsNotNull(fare_amount), IsNotNull(tip_amount), IsNotNull(total_amount), GreaterThanOrEqual(tpep_pickup_datetime,2024-01-01T00:00), LessThan(tpep_pickup_datetime,2024-02-01T00:00), GreaterThanOrEqual(PULocationID,1), LessThanOrEqual(PULocationID,265), GreaterThanOrEqual(trip_distance,0.1), LessThanOrEqual(trip_distance,100.0), GreaterThanOrEqual(fare_amount,0.0), LessThanOrEqual(fare_amount,1000.0), GreaterThanOrEqual(tip_amount,0.0), LessThanOrEqual(tip_amount,1000.0), GreaterThanOrEqual(total_amount,0.0), LessThanOrEqual(total_amount,2000.0)]
+ReadSchema: struct<tpep_pickup_datetime:timestamp_ntz,tpep_dropoff_datetime:timestamp_ntz,trip_distance:double,PULocationID:int,fare_amount:double,tip_amount:double,total_amount:double>
+
+(2) ColumnarToRow [codegen id : 1]
+Input [7]: [tpep_pickup_datetime#1, tpep_dropoff_datetime#2, trip_distance#4, PULocationID#7, fare_amount#10, tip_amount#13, total_amount#16]
+
+(3) Filter [codegen id : 1]
+Input [7]: [tpep_pickup_datetime#1, tpep_dropoff_datetime#2, trip_distance#4, PULocationID#7, fare_amount#10, tip_amount#13, total_amount#16]
+Condition : ((((((((((((((((((((((isnotnull(tpep_pickup_datetime#1) AND isnotnull(tpep_dropoff_datetime#2)) AND isnotnull(PULocationID#7)) AND isnotnull(trip_distance#4)) AND isnotnull(fare_amount#10)) AND isnotnull(tip_amount#13)) AND isnotnull(total_amount#16)) AND (tpep_pickup_datetime#1 >= 2024-01-01 00:00:00)) AND (tpep_pickup_datetime#1 < 2024-02-01 00:00:00)) AND isnotnull(cast(tpep_pickup_datetime#1 as timestamp))) AND isnotnull(cast(tpep_dropoff_datetime#2 as timestamp))) AND (PULocationID#7 >= 1)) AND (PULocationID#7 <= 265)) AND ((cast((unix_timestamp(cast(tpep_dropoff_datetime#2 as timestamp), yyyy-MM-dd HH:mm:ss, Some(UTC), true) - unix_timestamp(cast(tpep_pickup_datetime#1 as timestamp), yyyy-MM-dd HH:mm:ss, Some(UTC), true)) as double) / 60.0) >= 1.0)) AND ((cast((unix_timestamp(cast(tpep_dropoff_datetime#2 as timestamp), yyyy-MM-dd HH:mm:ss, Some(UTC), true) - unix_timestamp(cast(tpep_pickup_datetime#1 as timestamp), yyyy-MM-dd HH:mm:ss, Some(UTC), true)) as double) / 60.0) <= 180.0)) AND (trip_distance#4 >= 0.1)) AND (trip_distance#4 <= 100.0)) AND (fare_amount#10 >= 0.0)) AND (fare_amount#10 <= 1000.0)) AND (tip_amount#13 >= 0.0)) AND (tip_amount#13 <= 1000.0)) AND (total_amount#16 >= 0.0)) AND (total_amount#16 <= 2000.0))
+
+(4) Project [codegen id : 1]
+Output [2]: [PULocationID#7 AS pickup_location_id#108, date_trunc(hour, cast(tpep_pickup_datetime#1 as timestamp), Some(UTC)) AS pickup_hour#117]
+Input [7]: [tpep_pickup_datetime#1, tpep_dropoff_datetime#2, trip_distance#4, PULocationID#7, fare_amount#10, tip_amount#13, total_amount#16]
+
+(5) Exchange
+Input [2]: [pickup_location_id#108, pickup_hour#117]
+Arguments: hashpartitioning(pickup_location_id#108, 200), ENSURE_REQUIREMENTS, [plan_id=724]
+
+(6) Sort [codegen id : 2]
+Input [2]: [pickup_location_id#108, pickup_hour#117]
+Arguments: [pickup_location_id#108 ASC NULLS FIRST], false, 0
+
+(7) Scan csv 
+Output [2]: [LocationID#37, Borough#38]
+Batched: false
+Location: InMemoryFileIndex [s3://cs675-taxi-weather-project-066849627846-data/raw/zone_lookup/taxi_zone_lookup.csv]
+PushedFilters: [GreaterThanOrEqual(LocationID,1), LessThanOrEqual(LocationID,265), IsNotNull(LocationID)]
+ReadSchema: struct<LocationID:int,Borough:string>
+
+(8) Filter [codegen id : 3]
+Input [2]: [LocationID#37, Borough#38]
+Condition : (((LocationID#37 >= 1) AND (LocationID#37 <= 265)) AND isnotnull(LocationID#37))
+
+(9) Project [codegen id : 3]
+Output [2]: [LocationID#37 AS pickup_location_id#122, trim(Borough#38, None) AS pickup_borough#123]
+Input [2]: [LocationID#37, Borough#38]
+
+(10) Sort [codegen id : 3]
+Input [2]: [pickup_location_id#122, pickup_borough#123]
+Arguments: [pickup_location_id#122 ASC NULLS FIRST], false, 0
+
+(11) SortAggregate
+Input [2]: [pickup_location_id#122, pickup_borough#123]
+Keys [1]: [pickup_location_id#122]
+Functions [1]: [partial_first(pickup_borough#123, false)]
+Aggregate Attributes [2]: [first#409, valueSet#410]
+Results [3]: [pickup_location_id#122, first#411, valueSet#412]
+
+(12) Exchange
+Input [3]: [pickup_location_id#122, first#411, valueSet#412]
+Arguments: hashpartitioning(pickup_location_id#122, 200), ENSURE_REQUIREMENTS, [plan_id=735]
+
+(13) Sort [codegen id : 4]
+Input [3]: [pickup_location_id#122, first#411, valueSet#412]
+Arguments: [pickup_location_id#122 ASC NULLS FIRST], false, 0
+
+(14) SortAggregate
+Input [3]: [pickup_location_id#122, first#411, valueSet#412]
+Keys [1]: [pickup_location_id#122]
+Functions [1]: [first(pickup_borough#123, false)]
+Aggregate Attributes [1]: [first(pickup_borough#123)()#387]
+Results [2]: [pickup_location_id#122, first(pickup_borough#123)()#387 AS pickup_borough#388]
+
+(15) SortMergeJoin [codegen id : 5]
+Left keys [1]: [pickup_location_id#108]
+Right keys [1]: [pickup_location_id#122]
+Join type: LeftOuter
+Join condition: None
+
+(16) Project [codegen id : 5]
+Output [3]: [pickup_location_id#108, pickup_hour#117, pickup_borough#388]
+Input [4]: [pickup_location_id#108, pickup_hour#117, pickup_location_id#122, pickup_borough#388]
+
+(17) Exchange
+Input [3]: [pickup_location_id#108, pickup_hour#117, pickup_borough#388]
+Arguments: hashpartitioning(pickup_hour#117, 200), ENSURE_REQUIREMENTS, [plan_id=744]
+
+(18) Sort [codegen id : 6]
+Input [3]: [pickup_location_id#108, pickup_hour#117, pickup_borough#388]
+Arguments: [pickup_hour#117 ASC NULLS FIRST], false, 0
+
+(19) Scan parquet 
+Output [7]: [weather_hour#41, temperature_c#45, precipitation_mm#46, precipitation_trace#47, present_weather#51, year#58, month#59]
+Batched: true
+Location: InMemoryFileIndex [s3://cs675-taxi-weather-project-066849627846-data/processed/weather_hourly]
+PushedFilters: [IsNotNull(weather_hour)]
+ReadSchema: struct<weather_hour:timestamp,temperature_c:double,precipitation_mm:double,precipitation_trace:boolean,present_weather:string>
+
+(20) ColumnarToRow [codegen id : 7]
+Input [7]: [weather_hour#41, temperature_c#45, precipitation_mm#46, precipitation_trace#47, present_weather#51, year#58, month#59]
+
+(21) Filter [codegen id : 7]
+Input [7]: [weather_hour#41, temperature_c#45, precipitation_mm#46, precipitation_trace#47, present_weather#51, year#58, month#59]
+Condition : isnotnull(weather_hour#41)
+
+(22) Project [codegen id : 7]
+Output [2]: [weather_hour#41, CASE WHEN RLIKE(lower(coalesce(present_weather#51, )), snow|sn) THEN Snow WHEN ((temperature_c#45 <= 1.0) AND (precipitation_mm#46 > 0.0)) THEN Snow WHEN (precipitation_mm#46 >= 2.5) THEN Heavy Rain WHEN ((precipitation_mm#46 > 0.0) OR precipitation_trace#47) THEN Rain ELSE Dry END AS weather_condition#128]
+Input [7]: [weather_hour#41, temperature_c#45, precipitation_mm#46, precipitation_trace#47, present_weather#51, year#58, month#59]
+
+(23) Sort [codegen id : 7]
+Input [2]: [weather_hour#41, weather_condition#128]
+Arguments: [weather_hour#41 ASC NULLS FIRST], false, 0
+
+(24) SortAggregate
+Input [2]: [weather_hour#41, weather_condition#128]
+Keys [1]: [weather_hour#41]
+Functions [1]: [partial_first(weather_condition#128, false)]
+Aggregate Attributes [2]: [first#413, valueSet#414]
+Results [3]: [weather_hour#41, first#415, valueSet#416]
+
+(25) Exchange
+Input [3]: [weather_hour#41, first#415, valueSet#416]
+Arguments: hashpartitioning(weather_hour#41, 200), ENSURE_REQUIREMENTS, [plan_id=756]
+
+(26) Sort [codegen id : 8]
+Input [3]: [weather_hour#41, first#415, valueSet#416]
+Arguments: [weather_hour#41 ASC NULLS FIRST], false, 0
+
+(27) SortAggregate
+Input [3]: [weather_hour#41, first#415, valueSet#416]
+Keys [1]: [weather_hour#41]
+Functions [1]: [first(weather_condition#128, false)]
+Aggregate Attributes [1]: [first(weather_condition#128)()#407]
+Results [2]: [weather_hour#41, first(weather_condition#128)()#407 AS weather_condition#408]
+
+(28) SortMergeJoin [codegen id : 9]
+Left keys [1]: [pickup_hour#117]
+Right keys [1]: [weather_hour#41]
+Join type: LeftOuter
+Join condition: None
+
+(29) Project [codegen id : 9]
+Output [4]: [pickup_location_id#108, pickup_hour#117, pickup_borough#388, weather_condition#408]
+Input [5]: [pickup_location_id#108, pickup_hour#117, pickup_borough#388, weather_hour#41, weather_condition#408]
+
+
+
+=== Weather summary ===
++-----------------+----------+---------------+----------------+--------------------+------------------+-----------------------+-----------------+--------------------+
+|weather_condition|trip_count|avg_fare_amount|avg_total_amount|avg_duration_minutes|avg_distance_miles|avg_card_tip_percentage|avg_temperature_c|avg_precipitation_mm|
++-----------------+----------+---------------+----------------+--------------------+------------------+-----------------------+-----------------+--------------------+
+|Dry              |2266378   |18.52          |27.46           |15.02               |3.33              |25.4                   |2.89             |0.0                 |
+|Rain             |401265    |18.2           |26.79           |14.94               |3.22              |25.17                  |5.43             |0.378               |
+|Snow             |140987    |18.69          |27.09           |15.9                |3.21              |24.87                  |-0.58            |0.526               |
+|Heavy Rain       |48808     |16.43          |25.08           |12.61               |2.94              |26.84                  |9.44             |4.562               |
++-----------------+----------+---------------+----------------+--------------------+------------------+-----------------------+-----------------+--------------------+
+
+
+=== Borough-weather summary ===
++--------------+-----------------+----------+---------------+--------------------+-----------------------+
+|pickup_borough|weather_condition|trip_count|avg_fare_amount|avg_duration_minutes|avg_card_tip_percentage|
++--------------+-----------------+----------+---------------+--------------------+-----------------------+
+|Bronx         |Dry              |4353      |32.52          |38.73               |0.66                   |
+|Bronx         |Rain             |972       |31.98          |36.7                |0.74                   |
+|Bronx         |Snow             |334       |31.98          |41.21               |0.55                   |
+|Bronx         |Heavy Rain       |48        |26.24          |22.89               |1.01                   |
+|Brooklyn      |Dry              |17219     |28.75          |31.92               |7.68                   |
+|Brooklyn      |Rain             |3401      |29.17          |32.97               |7.1                    |
+|Brooklyn      |Snow             |1084      |28.27          |33.18               |5.34                   |
+|Brooklyn      |Heavy Rain       |312       |24.97          |19.29               |16.71                  |
+|EWR           |Dry              |14        |74.04          |23.85               |14.71                  |
+|EWR           |Rain             |2         |41.35          |13.88               |15.83                  |
+|Manhattan     |Dry              |2030314   |14.9           |13.03               |26.01                  |
+|Manhattan     |Rain             |362618    |14.96          |13.1                |25.74                  |
+|Manhattan     |Snow             |126484    |15.07          |13.78               |25.47                  |
+|Manhattan     |Heavy Rain       |45155     |13.87          |11.45               |27.29                  |
+|N/A           |Dry              |395       |66.08          |35.71               |17.17                  |
+|N/A           |Rain             |62        |73.5           |34.07               |12.75                  |
+|N/A           |Snow             |28        |68.87          |37.6                |12.81                  |
+|N/A           |Heavy Rain       |8         |51.86          |24.92               |16.9                   |
+|Queens        |Dry              |206496    |52.92          |32.63               |20.96                  |
+|Queens        |Rain             |32938     |52.24          |32.62               |20.8                   |
+|Queens        |Snow             |12521     |53.91          |35.05               |20.77                  |
+|Queens        |Heavy Rain       |3178      |51.69          |28.25               |20.78                  |
+|Staten Island |Dry              |26        |60.27          |29.87               |23.96                  |
+|Staten Island |Rain             |6         |38.61          |21.76               |21.6                   |
+|Staten Island |Heavy Rain       |1         |20.51          |15.73               |NULL                   |
+|Unknown       |Dry              |7561      |18.5           |14.73               |25.17                  |
+|Unknown       |Rain             |1266      |18.31          |14.67               |24.47                  |
+|Unknown       |Snow             |536       |20.56          |17.2                |25.13                  |
+|Unknown       |Heavy Rain       |106       |18.07          |13.62               |24.63                  |
++--------------+-----------------+----------+---------------+--------------------+-----------------------+
+
+Wrote joined trips to: s3://cs675-taxi-weather-project-066849627846-data/processed/performance_comparison/baseline/january_2024/joined_trips
+Wrote weather_summary to: s3://cs675-taxi-weather-project-066849627846-data/processed/performance_comparison/baseline/january_2024/weather_summary
+Wrote borough_weather_summary to: s3://cs675-taxi-weather-project-066849627846-data/processed/performance_comparison/baseline/january_2024/borough_weather_summary
+Wrote hourly_demand to: s3://cs675-taxi-weather-project-066849627846-data/processed/performance_comparison/baseline/january_2024/hourly_demand
+Wrote zone_weather_summary to: s3://cs675-taxi-weather-project-066849627846-data/processed/performance_comparison/baseline/january_2024/zone_weather_summary

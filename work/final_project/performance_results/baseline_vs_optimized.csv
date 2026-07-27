@@ -1,0 +1,19 @@
+﻿Measure,Baseline,Optimized
+Runtime seconds,183,91
+Taxi source rows,2964624,2964624
+Weather source rows,8783,744
+Joined rows,2857438,2857438
+Zone match rate,100.00%,100.00%
+Weather match rate,100.00%,100.00%
+Spark jobs,20,32
+Completed stages,61,32
+Successful tasks,5078,56
+Input records read,32691503,2967626
+Shuffle read MB,720.833,1.044
+Shuffle write MB,716.291,0.651
+Output written MB,75.556,67.547
+vCPU hours,0.399,0.194
+Memory GB hours,1.596,0.778
+Storage GB hours,1.994,0.972
+Join strategy,SortMergeJoin,BroadcastHashJoin
+AQE,Disabled,Enabled

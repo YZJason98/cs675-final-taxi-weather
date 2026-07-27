@@ -368,22 +368,52 @@ def main():
         )
     )
 
-    cleaned_count = joined.count()
-
-    zone_match_count = (
+    quality_counts = (
         joined
-        .filter(
-            F.col("pickup_zone").isNotNull()
+        .agg(
+            F.count("*").alias(
+                "cleaned_count"
+            ),
+            F.sum(
+                F.when(
+                    F.col(
+                        "pickup_zone"
+                    ).isNotNull(),
+                    1,
+                ).otherwise(0)
+            ).alias(
+                "zone_match_count"
+            ),
+            F.sum(
+                F.when(
+                    F.col(
+                        "temperature_c"
+                    ).isNotNull(),
+                    1,
+                ).otherwise(0)
+            ).alias(
+                "weather_match_count"
+            ),
         )
-        .count()
+        .first()
     )
 
-    weather_match_count = (
-        joined
-        .filter(
-            F.col("temperature_c").isNotNull()
-        )
-        .count()
+    cleaned_count = int(
+        quality_counts[
+            "cleaned_count"
+        ]
+    )
+
+    zone_match_count = int(
+        quality_counts[
+            "zone_match_count"
+        ]
+    )
+
+    weather_match_count = int(
+        quality_counts[
+            "weather_match_count"
+        ]
     )
 
     zone_match_rate = (
@@ -645,22 +675,7 @@ def main():
         )
     )
 
-    print("\n=== Weather summary ===")
-    weather_summary.show(
-        20,
-        truncate=False,
-    )
-
-    print(
-        "\n=== Borough-weather summary ==="
-    )
-
-    borough_weather_summary.show(
-        50,
-        truncate=False,
-    )
-
-    # ---------------------------------------------------------
+    # Write joined dataset
     # Write joined dataset
     # ---------------------------------------------------------
 

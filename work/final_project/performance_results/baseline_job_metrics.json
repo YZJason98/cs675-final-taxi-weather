@@ -1,0 +1,64 @@
+﻿{
+    "jobRun": {
+        "applicationId": "00g7gvut45kphv09",
+        "jobRunId": "00g7h5df975k380b",
+        "name": "cs675-baseline-january-2024",
+        "arn": "arn:aws:emr-serverless:us-east-1:066849627846:/applications/00g7gvut45kphv09/jobruns/00g7h5df975k380b",
+        "createdBy": "arn:aws:sts::066849627846:assumed-role/AWSReservedSSO_AdministratorAccess_69bb3c55dd9c43ce/cs675-admin",
+        "createdAt": "2026-07-26T20:59:32.861000-04:00",
+        "updatedAt": "2026-07-26T21:04:45.577000-04:00",
+        "executionRole": "arn:aws:iam::066849627846:role/cs675-taxi-weather-project-emr-job-role",
+        "state": "SUCCESS",
+        "stateDetails": "",
+        "releaseLabel": "emr-spark-8.0.0",
+        "configurationOverrides": {
+            "monitoringConfiguration": {
+                "s3MonitoringConfiguration": {
+                    "logUri": "s3://cs675-taxi-weather-project-066849627846-data/logs/emr-serverless/baseline/"
+                },
+                "managedPersistenceMonitoringConfiguration": {
+                    "enabled": true
+                }
+            }
+        },
+        "jobDriver": {
+            "sparkSubmit": {
+                "entryPoint": "s3://cs675-taxi-weather-project-066849627846-data/scripts/05a_baseline_taxi_weather_analysis.py",
+                "entryPointArguments": [
+                    "--taxi-input",
+                    "s3://cs675-taxi-weather-project-066849627846-data/raw/taxi/year=2024/month=01/yellow_tripdata_2024-01.parquet",
+                    "--zone-input",
+                    "s3://cs675-taxi-weather-project-066849627846-data/raw/zone_lookup/taxi_zone_lookup.csv",
+                    "--weather-input",
+                    "s3://cs675-taxi-weather-project-066849627846-data/processed/weather_hourly/",
+                    "--output",
+                    "s3://cs675-taxi-weather-project-066849627846-data/processed/performance_comparison/baseline/january_2024/"
+                ],
+                "sparkSubmitParameters": "--conf spark.executor.instances=1"
+            }
+        },
+        "tags": {},
+        "totalResourceUtilization": {
+            "vCPUHour": 0.399,
+            "memoryGBHour": 1.596,
+            "storageGBHour": 1.994
+        },
+        "totalExecutionDurationSeconds": 183,
+        "executionTimeoutMinutes": 720,
+        "billedResourceUtilization": {
+            "vCPUHour": 0.399,
+            "memoryGBHour": 1.596,
+            "storageGBHour": 0.0
+        },
+        "mode": "BATCH",
+        "retryPolicy": {
+            "maxAttempts": 1
+        },
+        "attempt": 1,
+        "attemptCreatedAt": "2026-07-26T20:59:32.861000-04:00",
+        "attemptUpdatedAt": "2026-07-26T21:04:45.577000-04:00",
+        "startedAt": "2026-07-26T21:01:41.719000-04:00",
+        "endedAt": "2026-07-26T21:04:45.577000-04:00",
+        "queuedDurationMilliseconds": 45
+    }
+}
