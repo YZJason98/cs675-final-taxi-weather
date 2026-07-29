@@ -1,7 +1,0 @@
-{
-  "monitoringConfiguration": {
-    "s3MonitoringConfiguration": {
-      "logUri": "s3://cs675-taxi-weather-project-066849627846-data/logs/emr-serverless/optimized/"
-    }
-  }
-}
