@@ -15,3 +15,21 @@ terraform.tfvars
 *.tfplan
 crash.log
 crash.*.log
+# Python temporary files
+
+# Temporary EMR job configuration files
+emr_*_job_driver.json
+emr_*_configuration.json
+work/final_project/phase9*_job_driver.json
+work/final_project/phase9*_config_overrides.json
+
+# Backup and intermediate scripts
+work/final_project/*_backup.py
+work/final_project/*_before_*.py
+
+# Downloaded cloud logs and intermediate outputs
+work/final_project/performance_results/*_logs/
+work/final_project/phase9_results/
+
+# Temporary performance working files
+work/final_project/performance_results/

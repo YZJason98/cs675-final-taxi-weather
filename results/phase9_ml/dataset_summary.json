@@ -1,0 +1,2 @@
+﻿{"dataset_split":"test","dataset_rows":8832,"distinct_hours":2208,"represented_trip_count":10617487,"high_demand_rows":3058,"high_demand_row_pct":34.62}
+{"dataset_split":"train","dataset_rows":26300,"distinct_hours":6575,"represented_trip_count":28765903,"high_demand_rows":6477,"high_demand_row_pct":24.63}

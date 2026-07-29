@@ -1,0 +1,68 @@
+﻿{
+    "jobRun": {
+        "applicationId": "00g7gvut45kphv09",
+        "jobRunId": "00g7hv0977n2f00b",
+        "name": "cs675-full-year-optimized-hourly-2024",
+        "arn": "arn:aws:emr-serverless:us-east-1:066849627846:/applications/00g7gvut45kphv09/jobruns/00g7hv0977n2f00b",
+        "createdBy": "arn:aws:sts::066849627846:assumed-role/AWSReservedSSO_AdministratorAccess_69bb3c55dd9c43ce/cs675-admin",
+        "createdAt": "2026-07-27T20:50:31.371000-04:00",
+        "updatedAt": "2026-07-27T20:58:49.617000-04:00",
+        "executionRole": "arn:aws:iam::066849627846:role/cs675-taxi-weather-project-emr-job-role",
+        "state": "SUCCESS",
+        "stateDetails": "",
+        "releaseLabel": "emr-spark-8.0.0",
+        "configurationOverrides": {
+            "monitoringConfiguration": {
+                "s3MonitoringConfiguration": {
+                    "logUri": "s3://cs675-taxi-weather-project-066849627846-data/logs/emr-serverless/full-year-optimized-hourly/"
+                },
+                "managedPersistenceMonitoringConfiguration": {
+                    "enabled": true
+                }
+            }
+        },
+        "jobDriver": {
+            "sparkSubmit": {
+                "entryPoint": "s3://cs675-taxi-weather-project-066849627846-data/scripts/05c_full_year_hourly_taxi_weather_analysis.py",
+                "entryPointArguments": [
+                    "--taxi-input",
+                    "s3://cs675-taxi-weather-project-066849627846-data/raw/taxi/year=2024/",
+                    "--zone-input",
+                    "s3://cs675-taxi-weather-project-066849627846-data/raw/zone_lookup/taxi_zone_lookup.csv",
+                    "--weather-input",
+                    "s3://cs675-taxi-weather-project-066849627846-data/processed/weather_hourly/year=2024/",
+                    "--start-date",
+                    "2024-01-01",
+                    "--end-date",
+                    "2025-01-01",
+                    "--output",
+                    "s3://cs675-taxi-weather-project-066849627846-data/processed/full_year_optimized/hourly/2024/"
+                ],
+                "sparkSubmitParameters": "--conf spark.executor.instances=2"
+            }
+        },
+        "tags": {},
+        "totalResourceUtilization": {
+            "vCPUHour": 0.781,
+            "memoryGBHour": 3.124,
+            "storageGBHour": 3.906
+        },
+        "totalExecutionDurationSeconds": 355,
+        "executionTimeoutMinutes": 720,
+        "billedResourceUtilization": {
+            "vCPUHour": 0.781,
+            "memoryGBHour": 3.124,
+            "storageGBHour": 0.0
+        },
+        "mode": "BATCH",
+        "retryPolicy": {
+            "maxAttempts": 1
+        },
+        "attempt": 1,
+        "attemptCreatedAt": "2026-07-27T20:50:31.371000-04:00",
+        "attemptUpdatedAt": "2026-07-27T20:58:49.617000-04:00",
+        "startedAt": "2026-07-27T20:52:54.475000-04:00",
+        "endedAt": "2026-07-27T20:58:49.617000-04:00",
+        "queuedDurationMilliseconds": 56
+    }
+}

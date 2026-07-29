@@ -1,0 +1,60 @@
+﻿{
+    "jobRun": {
+        "applicationId": "00g7gvut45kphv09",
+        "jobRunId": "00g7huq03n4o1o0b",
+        "name": "cs675-full-year-taxi-schema-validation-2024",
+        "arn": "arn:aws:emr-serverless:us-east-1:066849627846:/applications/00g7gvut45kphv09/jobruns/00g7huq03n4o1o0b",
+        "createdBy": "arn:aws:sts::066849627846:assumed-role/AWSReservedSSO_AdministratorAccess_69bb3c55dd9c43ce/cs675-admin",
+        "createdAt": "2026-07-27T20:39:32.374000-04:00",
+        "updatedAt": "2026-07-27T20:42:41.142000-04:00",
+        "executionRole": "arn:aws:iam::066849627846:role/cs675-taxi-weather-project-emr-job-role",
+        "state": "SUCCESS",
+        "stateDetails": "",
+        "releaseLabel": "emr-spark-8.0.0",
+        "configurationOverrides": {
+            "monitoringConfiguration": {
+                "s3MonitoringConfiguration": {
+                    "logUri": "s3://cs675-taxi-weather-project-066849627846-data/logs/emr-serverless/full-year-schema-validation/"
+                },
+                "managedPersistenceMonitoringConfiguration": {
+                    "enabled": true
+                }
+            }
+        },
+        "jobDriver": {
+            "sparkSubmit": {
+                "entryPoint": "s3://cs675-taxi-weather-project-066849627846-data/scripts/06_validate_full_year_taxi_schema.py",
+                "entryPointArguments": [
+                    "--taxi-root",
+                    "s3://cs675-taxi-weather-project-066849627846-data/raw/taxi",
+                    "--year",
+                    "2024"
+                ],
+                "sparkSubmitParameters": "--conf spark.executor.instances=1"
+            }
+        },
+        "tags": {},
+        "totalResourceUtilization": {
+            "vCPUHour": 0.11,
+            "memoryGBHour": 0.44,
+            "storageGBHour": 0.55
+        },
+        "totalExecutionDurationSeconds": 54,
+        "executionTimeoutMinutes": 720,
+        "billedResourceUtilization": {
+            "vCPUHour": 0.133,
+            "memoryGBHour": 0.533,
+            "storageGBHour": 0.0
+        },
+        "mode": "BATCH",
+        "retryPolicy": {
+            "maxAttempts": 1
+        },
+        "attempt": 1,
+        "attemptCreatedAt": "2026-07-27T20:39:32.374000-04:00",
+        "attemptUpdatedAt": "2026-07-27T20:42:41.142000-04:00",
+        "startedAt": "2026-07-27T20:41:47.119000-04:00",
+        "endedAt": "2026-07-27T20:42:41.142000-04:00",
+        "queuedDurationMilliseconds": 44
+    }
+}

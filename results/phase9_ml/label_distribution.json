@@ -1,0 +1,16 @@
+﻿{"dataset_split":"test","pickup_borough":"Bronx","demand_level":"Normal Demand","label":0.0,"row_count":1572,"avg_trip_count":8.55,"min_trip_count":0,"max_trip_count":18}
+{"dataset_split":"test","pickup_borough":"Bronx","demand_level":"High Demand","label":1.0,"row_count":636,"avg_trip_count":30.29,"min_trip_count":19,"max_trip_count":104}
+{"dataset_split":"test","pickup_borough":"Brooklyn","demand_level":"Normal Demand","label":0.0,"row_count":1271,"avg_trip_count":43.38,"min_trip_count":1,"max_trip_count":78}
+{"dataset_split":"test","pickup_borough":"Brooklyn","demand_level":"High Demand","label":1.0,"row_count":937,"avg_trip_count":124.54,"min_trip_count":79,"max_trip_count":461}
+{"dataset_split":"test","pickup_borough":"Manhattan","demand_level":"Normal Demand","label":0.0,"row_count":1402,"avg_trip_count":2789.36,"min_trip_count":123,"max_trip_count":5579}
+{"dataset_split":"test","pickup_borough":"Manhattan","demand_level":"High Demand","label":1.0,"row_count":806,"avg_trip_count":6898.47,"min_trip_count":5582,"max_trip_count":10990}
+{"dataset_split":"test","pickup_borough":"Queens","demand_level":"Normal Demand","label":0.0,"row_count":1529,"avg_trip_count":288.91,"min_trip_count":5,"max_trip_count":586}
+{"dataset_split":"test","pickup_borough":"Queens","demand_level":"High Demand","label":1.0,"row_count":679,"avg_trip_count":736.91,"min_trip_count":587,"max_trip_count":1119}
+{"dataset_split":"train","pickup_borough":"Bronx","demand_level":"Normal Demand","label":0.0,"row_count":5002,"avg_trip_count":7.66,"min_trip_count":0,"max_trip_count":18}
+{"dataset_split":"train","pickup_borough":"Bronx","demand_level":"High Demand","label":1.0,"row_count":1573,"avg_trip_count":26.62,"min_trip_count":19,"max_trip_count":100}
+{"dataset_split":"train","pickup_borough":"Brooklyn","demand_level":"Normal Demand","label":0.0,"row_count":4951,"avg_trip_count":38.93,"min_trip_count":0,"max_trip_count":78}
+{"dataset_split":"train","pickup_borough":"Brooklyn","demand_level":"High Demand","label":1.0,"row_count":1624,"avg_trip_count":113.98,"min_trip_count":79,"max_trip_count":387}
+{"dataset_split":"train","pickup_borough":"Manhattan","demand_level":"Normal Demand","label":0.0,"row_count":4932,"avg_trip_count":2972.61,"min_trip_count":110,"max_trip_count":5581}
+{"dataset_split":"train","pickup_borough":"Manhattan","demand_level":"High Demand","label":1.0,"row_count":1643,"avg_trip_count":6685.49,"min_trip_count":5582,"max_trip_count":10542}
+{"dataset_split":"train","pickup_borough":"Queens","demand_level":"Normal Demand","label":0.0,"row_count":4938,"avg_trip_count":305.83,"min_trip_count":1,"max_trip_count":586}
+{"dataset_split":"train","pickup_borough":"Queens","demand_level":"High Demand","label":1.0,"row_count":1637,"avg_trip_count":704.01,"min_trip_count":587,"max_trip_count":1519}

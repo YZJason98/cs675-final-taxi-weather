@@ -1,0 +1,2 @@
+﻿{"accuracy":0.649796,"f1_score":0.089491,"false_negative":2906,"false_positive":187,"model":"Logistic Regression","precision":0.448378,"recall":0.049706,"roc_auc":0.665772,"runtime_seconds":14.881,"test_rows":8832,"true_negative":5587,"true_positive":152}
+{"accuracy":0.776947,"f1_score":0.596477,"false_negative":1602,"false_positive":368,"model":"Random Forest","precision":0.798246,"recall":0.476128,"roc_auc":0.876833,"runtime_seconds":48.372,"test_rows":8832,"true_negative":5406,"true_positive":1456}

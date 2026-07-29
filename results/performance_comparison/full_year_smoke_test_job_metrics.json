@@ -1,0 +1,68 @@
+﻿{
+    "jobRun": {
+        "applicationId": "00g7gvut45kphv09",
+        "jobRunId": "00g7hu591obbf80b",
+        "name": "cs675-full-year-script-smoke-test-january-2024",
+        "arn": "arn:aws:emr-serverless:us-east-1:066849627846:/applications/00g7gvut45kphv09/jobruns/00g7hu591obbf80b",
+        "createdBy": "arn:aws:sts::066849627846:assumed-role/AWSReservedSSO_AdministratorAccess_69bb3c55dd9c43ce/cs675-admin",
+        "createdAt": "2026-07-27T20:03:19.655000-04:00",
+        "updatedAt": "2026-07-27T20:07:41.726000-04:00",
+        "executionRole": "arn:aws:iam::066849627846:role/cs675-taxi-weather-project-emr-job-role",
+        "state": "SUCCESS",
+        "stateDetails": "",
+        "releaseLabel": "emr-spark-8.0.0",
+        "configurationOverrides": {
+            "monitoringConfiguration": {
+                "s3MonitoringConfiguration": {
+                    "logUri": "s3://cs675-taxi-weather-project-066849627846-data/logs/emr-serverless/full-year-smoke-test/"
+                },
+                "managedPersistenceMonitoringConfiguration": {
+                    "enabled": true
+                }
+            }
+        },
+        "jobDriver": {
+            "sparkSubmit": {
+                "entryPoint": "s3://cs675-taxi-weather-project-066849627846-data/scripts/05c_full_year_hourly_taxi_weather_analysis.py",
+                "entryPointArguments": [
+                    "--taxi-input",
+                    "s3://cs675-taxi-weather-project-066849627846-data/raw/taxi/year=2024/month=01/yellow_tripdata_2024-01.parquet",
+                    "--zone-input",
+                    "s3://cs675-taxi-weather-project-066849627846-data/raw/zone_lookup/taxi_zone_lookup.csv",
+                    "--weather-input",
+                    "s3://cs675-taxi-weather-project-066849627846-data/processed/weather_hourly/year=2024/month=1/",
+                    "--start-date",
+                    "2024-01-01",
+                    "--end-date",
+                    "2024-02-01",
+                    "--output",
+                    "s3://cs675-taxi-weather-project-066849627846-data/processed/full_year_smoke_test/january_2024/"
+                ],
+                "sparkSubmitParameters": "--conf spark.executor.instances=1"
+            }
+        },
+        "tags": {},
+        "totalResourceUtilization": {
+            "vCPUHour": 0.207,
+            "memoryGBHour": 0.827,
+            "storageGBHour": 1.033
+        },
+        "totalExecutionDurationSeconds": 97,
+        "executionTimeoutMinutes": 720,
+        "billedResourceUtilization": {
+            "vCPUHour": 0.207,
+            "memoryGBHour": 0.827,
+            "storageGBHour": 0.0
+        },
+        "mode": "BATCH",
+        "retryPolicy": {
+            "maxAttempts": 1
+        },
+        "attempt": 1,
+        "attemptCreatedAt": "2026-07-27T20:03:19.655000-04:00",
+        "attemptUpdatedAt": "2026-07-27T20:07:41.726000-04:00",
+        "startedAt": "2026-07-27T20:06:03.773000-04:00",
+        "endedAt": "2026-07-27T20:07:41.726000-04:00",
+        "queuedDurationMilliseconds": 46
+    }
+}
