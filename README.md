@@ -60,6 +60,54 @@ The hourly dataset includes variables such as:
 - Present weather
 - Derived weather condition
 
+## Official Data Sources
+
+### Yellow Taxi Trip Records — Official Source
+
+The 2024 monthly Yellow Taxi Trip Record files were obtained from the official New York City Taxi and Limousine Commission data portal.
+
+- Official source:
+  https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page
+- Dataset period: January through December 2024
+- File format: Monthly Parquet files
+
+The dataset includes pickup and drop-off timestamps, pickup and drop-off location IDs, trip distance, fare components, payment type, passenger count, and tip amount.
+
+### Taxi Zone Lookup — Official Source
+
+The Taxi Zone Lookup Table was obtained from the NYC Taxi and Limousine Commission Trip Record Data page.
+
+- Official source:
+  https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page
+- File format: CSV
+
+The lookup table maps taxi location IDs to borough, taxi zone, and service-zone information.
+
+### NOAA Hourly Weather — Official Source
+
+Hourly weather observations were obtained from the NOAA National Centers for Environmental Information.
+
+- Local Climatological Data:
+  https://www.ncei.noaa.gov/products/land-based-station/local-climatological-data
+- Global Hourly / Integrated Surface Database:
+  https://www.ncei.noaa.gov/products/land-based-station/integrated-surface-database
+- Dataset period: January 1 through December 31, 2024
+- Study area: New York City / Central Park area
+
+The prepared weather dataset includes temperature, precipitation, relative humidity, wind speed, present weather, and derived weather-condition fields.
+
+## Input Data Availability
+
+The original source datasets are not committed to GitHub because of their size.
+
+To reproduce the project:
+
+1. Download the twelve monthly 2024 Yellow Taxi Parquet files.
+2. Download the NYC Taxi Zone Lookup CSV.
+3. Download the required 2024 NOAA hourly weather observations.
+4. Place the local files under the input paths documented in this README, or upload them to the corresponding Amazon S3 locations.
+5. Run the hourly weather-preparation script before running the taxi-weather analysis.
+
 ## Architecture
 
 ```text
